@@ -1,0 +1,13 @@
+/backend/node_modules
+/backend/cert.pem
+/backend/cert.csr
+/backend/key.pem
+/backend/privkey.pem
+/backend/.env
+
+/frontend/node_modules
+/frontend/cert.pem
+/frontend/cert.csr
+/frontend/key.pem
+/frontend/privkey.pem
+
