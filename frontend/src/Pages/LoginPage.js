@@ -36,7 +36,6 @@ function LoginPage() {
       <input type="text" placeholder="TumID" name="kennung" onChange={(e) => setUsername(e.target.value)} />
       <input type="password" placeholder="Password" name="password" onChange={(e) => setPassword(e.target.value)} />
       <button onClick={() => login(username, password)}>Login</button>
-      <button>Click me</button>
     </div >
   );
 }
