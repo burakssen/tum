@@ -10,6 +10,7 @@ exports.getWithUsernameData = async (_username) => {
         },
         limit: 1
     }
+
     return (await db.find(query)).docs[0];
 }
 

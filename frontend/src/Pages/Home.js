@@ -57,6 +57,7 @@ function Home() {
                                     <th>{index + 1}.{versionIndex + 1}</th>
                                     <th>{module["versions"][version]["module_id"]}</th>
                                     <th>{version}</th>
+                                    <th><button onClick={() => { navigate("/edit", { state: { document_id: module["_id"], version: version } }) }}>Edit</button></th>
                                 </tr>);
                             })
                         })

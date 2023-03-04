@@ -5,7 +5,9 @@ const { endpoints } = require("../common/endpoints/modules");
 const {
     createModuleController,
     updateModuleController,
-    getModuleController
+    getModuleController,
+    getMetaModuleController,
+    getModuleVersionController
 } = require("../controllers/modules");
 const { authenticateToken } = require("../utils/authenticateToken");
 
@@ -29,5 +31,21 @@ router.get(
     authenticateToken,
     getModuleController
 );
+
+router.get(
+    endpoints.getMeta,
+    validationHandler,
+    requestValidator(endpoints.getMeta),
+    authenticateToken,
+    getMetaModuleController
+)
+
+router.get(
+    endpoints.getModuleVersion,
+    validationHandler,
+    requestValidator(endpoints.getModuleVersion),
+    authenticateToken,
+    getModuleVersionController
+)
 
 module.exports = router;

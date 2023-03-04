@@ -7,8 +7,8 @@ const {
     createUserData
 } = require("../data/auth");
 
-exports.getWithUsernameService = asyncHandler(async (body) => {
-    return await getWithUsernameData(body.username);
+exports.getWithUsernameService = asyncHandler(async (username) => {
+    return await getWithUsernameData(username);
 });
 
 exports.createUserService = asyncHandler(async (body) => {

@@ -44,3 +44,20 @@ exports.getModuleData = async (username) => {
     });
     return newDocs;
 }
+
+exports.getMetaModuleData = async () => {
+    const metaDoc = await db.get("meta");
+
+    const meta = {
+        types: metaDoc["types"],
+        semester: metaDoc["semester"],
+        studiengaenge: metaDoc["studiengaenge"]
+    }
+
+    return meta;
+}
+
+exports.getModuleVersionData = async (query) => {
+    const document = await db.get(query._id);
+    return document["versions"][query.version];
+}
