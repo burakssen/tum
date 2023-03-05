@@ -15,22 +15,23 @@ const { cookie } = require("express-validator");
 exports.loginAuthController = asyncHandler(async (req, res) => {
 
     let result = await getWithUsernameService(req.body.username);
-    if (result === undefined)
+    if (result === undefined) {
         res.status(NOT_AUTHORIZED).json("User is not available");
-
-    if (await comparePassword(req.body.password, result.password)) {
-
-        const user = { username: req.body.username };
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1w' });
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        res.setHeader('Access-Control-Expose-Headers', '*');
-        res.setHeader('Access-Control-Allow-Headers', '*');
-        res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: 'None' });
-        res.sendStatus(SUCCESS);
+    } else {
+        if (await comparePassword(req.body.password, result.password)) {
+            const user = { username: req.body.username };
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1w' });
+            res.setHeader('Access-Control-Allow-Credentials', true);
+            res.setHeader('Access-Control-Expose-Headers', '*');
+            res.setHeader('Access-Control-Allow-Headers', '*');
+            res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: 'None' });
+            res.sendStatus(SUCCESS);
+        }
+        else {
+            res.status(NOT_AUTHORIZED).json("Password is wrong");
+        }
     }
-    else {
-        res.status(NOT_AUTHORIZED).json("Password is wrong");
-    }
+
 });
 
 exports.tokenAuthController = asyncHandler(async (req, res) => {

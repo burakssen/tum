@@ -4,12 +4,17 @@ const {
     createModuleData,
     getModuleData,
     getMetaModuleData,
-    getModuleVersionData
+    getModuleVersionData,
+    editModuleData
 } = require("../data/modules");
 
 exports.createModuleService = asyncHandler(async (module) => {
     return await createModuleData(module);
 });
+
+exports.editModuleService = asyncHandler(async (module) => {
+    return await editModuleData(module);
+})
 
 exports.getModuleService = asyncHandler(async (username) => {
     return await getModuleData(username);

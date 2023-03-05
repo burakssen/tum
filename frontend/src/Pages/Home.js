@@ -37,6 +37,7 @@ function Home() {
         }
     }, [navigate, isLoggedOut])
 
+
     return (
         <div className="Home">
             <button onClick={() => { logout() }}>Logout</button>
@@ -64,6 +65,7 @@ function Home() {
                     }
                 </tbody>
             </table>
+            <button onClick={() => navigate("/createModule")}>Create Module</button>
         </div >
     );
 }

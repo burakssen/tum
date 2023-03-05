@@ -1,7 +1,7 @@
 exports.endpoints = {
     create: "/create",
     update: "/update",
-    modify: "/modify",
+    edit: "/edit",
     get: "/get",
     getMeta: "/getMeta",
     getModuleVersion: "/getModuleVersion"

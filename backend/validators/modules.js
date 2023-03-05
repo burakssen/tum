@@ -12,7 +12,7 @@ exports.requestValidator = (method) => {
         case endpoints.update: {
             return [];
         }
-        case endpoints.modify: {
+        case endpoints.edit: {
             return [];
         }
         case endpoints.get: {

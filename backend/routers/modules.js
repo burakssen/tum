@@ -7,7 +7,8 @@ const {
     updateModuleController,
     getModuleController,
     getMetaModuleController,
-    getModuleVersionController
+    getModuleVersionController,
+    editModuleController
 } = require("../controllers/modules");
 const { authenticateToken } = require("../utils/authenticateToken");
 
@@ -22,7 +23,15 @@ router.post(
     requestValidator(endpoints.create),
     authenticateToken,
     createModuleController
-)
+);
+
+router.post(
+    endpoints.edit,
+    validationHandler,
+    requestValidator(endpoints.edit),
+    authenticateToken,
+    editModuleController
+);
 
 router.get(
     endpoints.get,
@@ -38,7 +47,7 @@ router.get(
     requestValidator(endpoints.getMeta),
     authenticateToken,
     getMetaModuleController
-)
+);
 
 router.get(
     endpoints.getModuleVersion,
@@ -46,6 +55,6 @@ router.get(
     requestValidator(endpoints.getModuleVersion),
     authenticateToken,
     getModuleVersionController
-)
+);
 
 module.exports = router;

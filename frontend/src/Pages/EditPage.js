@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getMeta, getModuleVersion } from "../apigateway";
+import { editModule, getMeta, getModuleVersion } from "../apigateway";
 import Select from "react-select";
 
 
@@ -9,27 +9,32 @@ function EditPage() {
     const { document_id, version } = state;
 
     const [currentModule, setCurrentModule] = useState();
-
     const [meta, setMeta] = useState();
 
+    const [module_id, setModule_id] = useState('');
+    const [antragsteller, setAntragsteller] = useState('');
+    const [modulverantwortlicher, setModulverantwortlicher] = useState('');
+    const [semester_start, setSemester_start] = useState('');
+    const [titel_de, setTitel_de] = useState('');
+    const [titel_en, setTitel_en] = useState('');
+    const [dozenten, setDozenten] = useState('');
+    const [sws_v, setSws_v] = useState('');
+    const [sws_u, setSws_u] = useState('');
+    const [sws_p, setSws_p] = useState('');
+    const [stunden_eigenstudium, setStunden_eigenstudium] = useState('');
+    const [credits, setCredits] = useState('');
+
+    const [type, setType] = useState([]);
+    const [studiengaenge, setStudiengaenge] = useState([]);
+    const [semester, setSemester] = useState([]);
+
     const [typeOptions, setTypeOptions] = useState([]);
-
-    const [studiengaengeOptions1, setStudiengaengeOptions1] = useState([]);
-    const [studiengaengeOptions2, setStudiengaengeOptions2] = useState([]);
-    const [studiengaengeOptions3, setStudiengaengeOptions3] = useState([]);
-
+    const [studiengaengeOptions, setStudiengaengeOptions] = useState([]);
     const [semesterOptions, setSemesterOptions] = useState([]);
 
-    const [type, setType] = useState();
-
-    const [studiengaenge1, setStudiengaenge1] = useState([]);
-    const [studiengaenge2, setStudiengaenge2] = useState([]);
-    const [studiengaenge3, setStudiengaenge3] = useState([]);
-
-    const [curretStudiengaenge1, setCurrentStudiengaenge1] = useState();
-    const [curretStudiengaenge2, setCurrentStudiengaenge2] = useState();
-
-    const [semester, setSemester] = useState();
+    const [abgestimmt_mit, setAbgestimmt_mit] = useState('');
+    const [zuordnung_coc, setZuordnung_coc] = useState('');
+    const [modulbeschreibung_liegt_vor, setModulbeschreibung_liegt_vor] = useState(false);
 
     useEffect(() => {
         const fetchMeta = async () => {
@@ -45,6 +50,7 @@ function EditPage() {
         const fetchModule = async () => {
             try {
                 const module = await getModuleVersion(document_id, version);
+                console.log(module);
                 setCurrentModule(module.data);
             }
             catch (err) {
@@ -58,53 +64,107 @@ function EditPage() {
 
     useEffect(() => {
         if (meta) {
-            const types = [];
-            const studiengaenge_1 = [];
-            const studiengaenge_2 = [];
-            const studiengaenge_3 = [];
+            const t_types = [];
+            const t_studiengaenge = [];
 
-            const semester = [];
+
+            const t_semester = [];
 
             meta.types.forEach(type => {
-                types.push({ value: type, label: type });
+                t_types.push({ value: type, label: type });
             });
 
             Object.keys(meta.studiengaenge).forEach((stud1) => {
-                studiengaenge_1.push({ value: stud1, label: stud1 });
-                studiengaenge_2[stud1] = [];
                 Object.keys(meta.studiengaenge[stud1]).forEach((stud2) => {
-                    studiengaenge_2[stud1].push({ value: stud2, label: stud2 });
-                    studiengaenge_3[stud2] = [];
                     meta.studiengaenge[stud1][stud2].forEach((stud3) => {
-                        if (stud3 === currentModule["studiengaenge"][0]) {
-                            setCurrentStudiengaenge1(stud1);
-                            setCurrentStudiengaenge2(stud2);
-                        }
-                        studiengaenge_3[stud2].push({ value: stud3, label: stud3 });
+                        t_studiengaenge.push({ value: stud3, label: stud3 });
                     });
                 });
             });
 
             meta.semester.forEach((sem) => {
-                semester.push({ value: sem, label: sem });
+                t_semester.push({ value: sem, label: sem });
             });
 
-            setTypeOptions(types);
-            setStudiengaengeOptions1(studiengaenge_1);
-            setStudiengaengeOptions2(studiengaenge_2);
-            setStudiengaengeOptions3(studiengaenge_3);
-            setSemesterOptions(semester);
+            setTypeOptions(t_types);
+            setStudiengaengeOptions(t_studiengaenge);
+            setSemesterOptions(t_semester);
+        }
+
+        if (currentModule) {
+            setModule_id(currentModule["module_id"]);
+            setAntragsteller(currentModule["antragsteller"]);
+            setModulverantwortlicher(currentModule["modulverantwortlicher"]);
+            setSemester_start(currentModule["semester_start"]);
+            setTitel_de(currentModule["titel_de"]);
+            setTitel_en(currentModule["titel_en"]);
+            setDozenten(currentModule["dozenten"]);
+            setSws_v(currentModule["sws_v"]);
+            setSws_u(currentModule["sws_u"]);
+            setSws_p(currentModule["sws_p"]);
+            setStunden_eigenstudium(currentModule["stunden_eigenstudium"]);
+            setCredits(currentModule["credits"]);
+
+            setType({ value: currentModule["type"], label: currentModule["type"] });
+            setSemester({ value: currentModule["semester"], label: currentModule["semester"] });
+            setStudiengaenge(currentModule["studiengaenge"].map((element) => { return { value: element, label: element } }));
+
+            setAbgestimmt_mit(currentModule["abgestimmt_mit"]);
+            setZuordnung_coc(currentModule["zuordnung_coc"]);
+            setModulbeschreibung_liegt_vor(currentModule["modulbeschreibung_liegt_vor"]);
         }
 
     }, [meta, currentModule]);
 
+    const handleSubmitModule = async () => {
+
+        const module = {
+            "document_id": document_id,
+            "version": version,
+            "module_id": module_id,
+            "antragsteller": antragsteller,
+            "modulverantwortlicher": modulverantwortlicher,
+            "semester_start": semester_start,
+            "titel_de": titel_de,
+            "titel_en": titel_en,
+            "dozenten": dozenten,
+            "sws_v": sws_v,
+            "sws_u": sws_u,
+            "sws_p": sws_p,
+            "stunden_eigenstudium": stunden_eigenstudium,
+            "credits": credits,
+            "semester": semester.value,
+            "type": type.value,
+            "studiengaenge": studiengaenge.map((element) => { return element.value }),
+            "abgestimmt_mit": abgestimmt_mit,
+            "zuordnung_coc": zuordnung_coc,
+            "modulbeschreibung_liegt_vor": modulbeschreibung_liegt_vor
+        }
+
+        await editModule(module);
+    }
+
     return (
-        <div className="EditPage" style={{ width: '300px' }}>
+        <div className="editForm" style={{ width: '300px' }}>
+            <div>Document Id: {document_id}, Version: {version}</div>
+            <input type="text" value={module_id} placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
+            <input type="text" value={antragsteller} placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />
+            <input type="text" value={modulverantwortlicher} placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
+            <input type="text" value={semester_start} placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
+            <input type="text" value={titel_de} placeholder="Title DE" onChange={(e) => { setTitel_de(e.target.value) }} />
+            <input type="text" value={titel_en} placeholder="Title EN" onChange={(e) => { setTitel_en(e.target.value) }} />
+            <input type="text" value={dozenten} placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
+            <input type="number" value={sws_v} placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
+            <input type="number" value={sws_u} placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
+            <input type="number" value={sws_p} placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
+            <input type="number" value={stunden_eigenstudium} placeholder="Stunden Eigenstudium" onChange={(e) => { setStunden_eigenstudium(e.target.value) }} />
+            <input type="number" value={credits} placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
+
             {currentModule &&
                 <Select
                     name="types"
                     options={typeOptions}
-                    defaultValue={{ label: currentModule["type"], value: currentModule["type"] }}
+                    value={type}
                     onChange={(e) => { setType(e.value); }}
                 />
             }
@@ -112,32 +172,32 @@ function EditPage() {
                 <Select
                     name="semester"
                     options={semesterOptions}
-                    defaultValue={{ label: currentModule["semester"], value: currentModule["semester"] }}
+                    value={semester}
                     onChange={(e) => { setSemester(e.value); }}
                 />
             }
-            {curretStudiengaenge1 &&
-                <Select
-                    name="studiengaenge2"
-                    options={studiengaengeOptions1}
-                    defaultValue={{ label: curretStudiengaenge1, value: curretStudiengaenge1 }}
-                    onChange={(e) => { setStudiengaenge1(e.value); }}
+            {
+                currentModule && <Select
+                    name="studiengaenge"
+                    isMulti
+                    options={studiengaengeOptions}
+                    value={studiengaenge}
+                    onChange={(e) => {
+                        const stud = [];
+                        e.forEach((selection) => {
+                            stud.push(selection.value);
+                        });
+                        setStudiengaenge(stud);
+                    }}
                 />
             }
-            {curretStudiengaenge2 &&
-                <Select
-                    name="studiengaenge2"
-                    options={studiengaengeOptions2[studiengaenge1]}
-                    defaultValue={{ label: curretStudiengaenge2, value: curretStudiengaenge2 }}
-                    onChange={(e) => { setStudiengaenge2(e.value); }}
-                />
-            }
-            {currentModule && <Select
-                name="studiengaenge3"
-                options={studiengaengeOptions3[studiengaenge2]}
-                defaultValue={{ label: currentModule["studiengaenge"][0], value: currentModule["studiengaenge"][0] }}
-                onChange={(e) => { setStudiengaenge3(e.value); }}
-            />}
+
+            <input type="text" value={abgestimmt_mit} placeholder="Abgestimmt Mit" onChange={(e) => { setAbgestimmt_mit(e.target.value) }} />
+            <input type="text" value={zuordnung_coc} placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
+            <label>Modulbeschreibung Liegt Vor</label>
+            <input type="checkbox" checked={modulbeschreibung_liegt_vor} onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+            <button onClick={handleSubmitModule}>Submit Module</button>
+
         </div >
 
     );
