@@ -57,4 +57,12 @@ router.get(
     getModuleVersionController
 );
 
+router.post(
+    endpoints.update,
+    validationHandler,
+    requestValidator(endpoints.update),
+    authenticateToken,
+    updateModuleController
+)
+
 module.exports = router;

@@ -84,3 +84,7 @@ exports.getModuleVersionData = async (query) => {
     const document = await db.get(query._id);
     return document["versions"][query.version];
 }
+
+exports.updateModuleData = async (module) => {
+
+}

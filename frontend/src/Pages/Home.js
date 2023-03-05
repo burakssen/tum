@@ -12,6 +12,8 @@ function Home() {
         const response = await logoutUser();
         if (response.status === 200) {
             setIsLoggedOut(true);
+            sessionStorage.removeItem("username");
+            sessionStorage.setItem("isLoggedIn", "false");
         }
     }
 

@@ -6,7 +6,8 @@ const {
     getModuleService,
     getMetaModuleService,
     getModuleVersionService,
-    editModuleService
+    editModuleService,
+    updateModuleService
 } = require("../services/modules");
 
 exports.createModuleController = asyncHandler(async (req, res) => {
@@ -31,5 +32,10 @@ exports.getMetaModuleController = asyncHandler(async (req, res) => {
 
 exports.getModuleVersionController = asyncHandler(async (req, res) => {
     const result = await getModuleVersionService(req.query);
+    res.status(SUCCESS).json(result);
+});
+
+exports.updateModuleController = asyncHandler(async (req, res) => {
+    const result = await updateModuleService(req.body);
     res.status(SUCCESS).json(result);
 });

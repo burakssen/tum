@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+import ProtectedRoute from './Components/ProtectedRoute';
+
 import Home from './Pages/Home';
 import LoginPage from './Pages/LoginPage';
 import EditPage from './Pages/EditPage';
@@ -10,10 +12,26 @@ const App = () => {
     return (
         <Routes>
             <Route index element={<LoginPage />} />
-            <Route path="home" element={<Home />} />
-            <Route path="edit" element={<EditPage />} />
-            <Route path="createModule" element={<CreateModulePage />} />
-            <Route path='*' element={<Navigate to='home' />} />
+            <Route path="home" element={
+                <ProtectedRoute>
+                    <Home />
+                </ProtectedRoute>
+            } />
+            <Route path="edit" element={
+                <ProtectedRoute>
+                    <EditPage />
+                </ProtectedRoute>
+            } />
+            <Route path="createModule" element={
+                <ProtectedRoute>
+                    <CreateModulePage />
+                </ProtectedRoute>
+            } />
+            <Route path='*' element={
+                <ProtectedRoute>
+                    <Navigate to='home' />
+                </ProtectedRoute>
+            } />
         </Routes>
     );
 };

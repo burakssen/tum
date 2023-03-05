@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { editModule, getMeta, getModuleVersion } from "../apigateway";
 import Select from "react-select";
+import axios from "axios";
 
 
 function EditPage() {
@@ -36,6 +37,8 @@ function EditPage() {
     const [zuordnung_coc, setZuordnung_coc] = useState('');
     const [modulbeschreibung_liegt_vor, setModulbeschreibung_liegt_vor] = useState(false);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchMeta = async () => {
             try {
@@ -50,7 +53,6 @@ function EditPage() {
         const fetchModule = async () => {
             try {
                 const module = await getModuleVersion(document_id, version);
-                console.log(module);
                 setCurrentModule(module.data);
             }
             catch (err) {
@@ -141,7 +143,10 @@ function EditPage() {
             "modulbeschreibung_liegt_vor": modulbeschreibung_liegt_vor
         }
 
-        await editModule(module);
+        const response = await editModule(module);
+        if (response.status === axios.HttpStatusCode.Ok) {
+            navigate("/home");
+        }
     }
 
     return (
@@ -165,7 +170,7 @@ function EditPage() {
                     name="types"
                     options={typeOptions}
                     value={type}
-                    onChange={(e) => { setType(e.value); }}
+                    onChange={(e) => { setType(e); }}
                 />
             }
             {currentModule &&
@@ -173,7 +178,7 @@ function EditPage() {
                     name="semester"
                     options={semesterOptions}
                     value={semester}
-                    onChange={(e) => { setSemester(e.value); }}
+                    onChange={(e) => { setSemester(e); }}
                 />
             }
             {
@@ -185,7 +190,7 @@ function EditPage() {
                     onChange={(e) => {
                         const stud = [];
                         e.forEach((selection) => {
-                            stud.push(selection.value);
+                            stud.push(selection);
                         });
                         setStudiengaenge(stud);
                     }}

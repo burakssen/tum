@@ -24,6 +24,7 @@ function LoginPage() {
     if (response.status === 200) {
       console.log("Login successfull");
       sessionStorage.setItem("username", username);
+      sessionStorage.setItem("isLoggedIn", "true");
       setIsLoggedIn(true);
     }
     else {
