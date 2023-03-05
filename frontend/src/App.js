@@ -6,7 +6,7 @@ import Home from './Pages/Home';
 import LoginPage from './Pages/LoginPage';
 import EditPage from './Pages/EditPage';
 import CreateModulePage from './Pages/CreateModulePage';
-
+import UpdateModulePage from './Pages/UpdateModulePage'
 
 const App = () => {
     return (
@@ -25,6 +25,11 @@ const App = () => {
             <Route path="createModule" element={
                 <ProtectedRoute>
                     <CreateModulePage />
+                </ProtectedRoute>
+            } />
+            <Route path="updateModule" element={
+                <ProtectedRoute>
+                    <UpdateModulePage />
                 </ProtectedRoute>
             } />
             <Route path='*' element={

@@ -86,5 +86,19 @@ exports.getModuleVersionData = async (query) => {
 }
 
 exports.updateModuleData = async (module) => {
-
+    const updateModule = {
+        "module_id": module.module_id,
+        "titel_de": module.titel_de,
+        "title_en": module.titel_en,
+        "credits": module.credits,
+        "semester": module.semester,
+        "semester_start": module.semester_start,
+        "sws_u": module.sws_u,
+        "sws_v": module.sws_v,
+        "sws_p": module.sws_p,
+        "type": module.type,
+        "stunden_eigenstudium": module.stunden_eigenstudium,
+        "modulverantwortlicher": module.modulverantwortlicher,
+        "dozenten": module.dozenten
+    }
 }

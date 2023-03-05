@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { createModule, getMeta } from "../apigateway";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "wc-toast";
 
 function CreateModulePage() {
 
@@ -99,56 +101,75 @@ function CreateModulePage() {
             "modulbeschreibung_liegt_vor": modulbeschreibung_liegt_vor
         }
 
-        await createModule(module);
-        navigate("/home");
+        try {
+            const response = await createModule(module);
+            if (response.status === axios.HttpStatusCode.Ok) {
+                toast.success("Module created successfully", { duration: 2000 });
+            }
+            navigate("/home");
+        }
+        catch (err) {
+            toast.error("Something went wrong!", { duration: 2000 });
+            console.log(err);
+        }
+
+
     }
 
     return (
-        <div className="createForm">
-            <input type="text" placeholder="Version" onChange={(e) => { setVersion(e.target.value) }} />
-            <input type="text" placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
-            <input type="text" placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />
-            <input type="text" placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
-            <input type="text" placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
-            <input type="text" placeholder="Title DE" onChange={(e) => { setTitel_de(e.target.value) }} />
-            <input type="text" placeholder="Title EN" onChange={(e) => { setTitel_en(e.target.value) }} />
-            <input type="text" placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
-            <input type="number" placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
-            <input type="number" placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
-            <input type="number" placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
-            <input type="number" placeholder="Stunden Eigenstudium" onChange={(e) => { setStunden_eigenstudium(e.target.value) }} />
-            <input type="number" placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
+        <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
+            <div className="col-lg-12 col-sm-12 pt-5"><h2>Create Module Page</h2></div>
+            <div className="row align-items-center justify-content-center flex-fill flex-column">
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Version" onChange={(e) => { setVersion(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Title DE" onChange={(e) => { setTitel_de(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Title EN" onChange={(e) => { setTitel_en(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="number" placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="number" placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="number" placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="number" placeholder="Stunden Eigenstudium" onChange={(e) => { setStunden_eigenstudium(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="number" placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
 
-            <Select
-                name="types"
-                placeholder="Types"
-                options={typesOptions}
-                onChange={(e) => { setType(e.value); }}
-            />
-            <Select
-                name="semester"
-                placeholder="Semester"
-                options={semesterOptions}
-                onChange={(e) => { setSemester(e.value); }}
-            />
-            <Select
-                name="studiengaenge"
-                isMulti
-                placeholder="Studiengaenge"
-                options={studiengaengeOptions}
-                onChange={(e) => {
-                    const stud = [];
-                    e.forEach((selection) => {
-                        stud.push(selection.value);
-                    });
-                    setStudiengaenge(stud);
-                }}
-            />
-            <input type="text" placeholder="Abgestimmt Mit" onChange={(e) => { setAbgestimmt_mit(e.target.value) }} />
-            <input type="text" placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
-            <label>Modulbeschreibung Liegt Vor</label>
-            <input type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
-            <button onClick={handleSubmitModule}>Submit Module</button>
+                <Select
+                    className="col-lg-3 col-sm-6 m-1 p-0"
+                    name="types"
+                    placeholder="Types"
+                    options={typesOptions}
+                    onChange={(e) => { setType(e.value); }}
+                />
+                <Select
+                    className="col-lg-3 col-sm-6 m-1 p-0"
+                    name="semester"
+                    placeholder="Semester"
+                    options={semesterOptions}
+                    onChange={(e) => { setSemester(e.value); }}
+                />
+                <Select
+                    className="col-lg-3 col-sm-6 m-1 p-0"
+                    name="studiengaenge"
+                    isMulti
+                    placeholder="Studiengaenge"
+                    options={studiengaengeOptions}
+                    onChange={(e) => {
+                        const stud = [];
+                        e.forEach((selection) => {
+                            stud.push(selection.value);
+                        });
+                        setStudiengaenge(stud);
+                    }}
+                />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Abgestimmt Mit" onChange={(e) => { setAbgestimmt_mit(e.target.value) }} />
+                <input className="col-lg-3 col-sm-6 m-1" type="text" placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
+                <div className="col-lg-3 col-sm-6 m-1 row-6">
+                    <label className="col-lg-6 col-sm-6" >Modulbeschreibung Liegt Vor</label>
+                    <input className="col-lg-6 col-sm-6" type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+                </div>
+                <button className="col-lg-3 col-sm-6 m-1 btn btn-success" onClick={handleSubmitModule}>Submit Module</button>
+            </div>
         </div>
     );
 }

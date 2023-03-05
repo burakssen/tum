@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../apigateway";
+import { toast } from 'wc-toast';
+import axios from "axios";
+
 
 function LoginPage() {
 
@@ -20,24 +23,32 @@ function LoginPage() {
 
 
   const login = async (username, password) => {
-    const response = await loginUser(username, password);
-    if (response.status === 200) {
-      console.log("Login successfull");
-      sessionStorage.setItem("username", username);
-      sessionStorage.setItem("isLoggedIn", "true");
-      setIsLoggedIn(true);
+    try {
+      const response = await loginUser(username, password);
+      if (response.status === axios.HttpStatusCode.Ok) {
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("isLoggedIn", "true");
+        setIsLoggedIn(true);
+      }
+    } catch (err) {
+      toast.error("Tum Id or password is incorrect");
     }
-    else {
-      // use toast to pop up notification.
-    }
+
   }
 
   return (
-    <div className="LoginPage">
-      <input type="text" placeholder="TumID" name="kennung" onChange={(e) => setUsername(e.target.value)} />
-      <input type="password" placeholder="Password" name="password" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={() => login(username, password)}>Login</button>
-    </div >
+
+    <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
+      <div className="row align-items-center justify-content-center flex-fill flex-column">
+        <input className="col-lg-3 col-sm-6 m-2" type="text" placeholder="TumID" name="kennung" onChange={(e) => setUsername(e.target.value)} />
+        <input className="col-lg-3 col-sm-6 m-2" type="password" placeholder="Password" name="password" onChange={(e) => setPassword(e.target.value)} />
+        <button className="col-lg-3 col-sm-6 m-2 btn btn-primary" onClick={() => login(username, password)}>Login</button>
+
+      </div>
+
+
+    </div>
+
   );
 }
 
