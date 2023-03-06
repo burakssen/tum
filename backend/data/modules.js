@@ -30,7 +30,8 @@ exports.createModuleData = async (module) => {
     });
 
     const mapping = metaDoc["module_user_mappings"][module.username] ? [...metaDoc["module_user_mappings"][module.username], newModule.id.toString()] : newModule.id.toString();
-    metaDoc["module_user_mappings"][module.username] = mapping;
+    metaDoc["module_user_mappings"][module.username] = [];
+    metaDoc["module_user_mappings"][module.username].push(mapping);
     return await db.insert(metaDoc);
 }
 
@@ -58,13 +59,24 @@ exports.editModuleData = async (module) => {
 }
 
 exports.getModuleData = async (username) => {
-    const metaDoc = await db.get("meta");
-    const docNames = metaDoc["module_user_mappings"][username];
-    const docs = await db.fetch({ keys: docNames });
     const newDocs = [];
-    docs["rows"].forEach(document => {
-        newDocs.push(document.doc);
-    });
+
+    try {
+        const metaDoc = await db.get("meta");
+
+        const docNames = metaDoc["module_user_mappings"][username]
+
+        const docs = await db.fetch({ keys: docNames });
+
+
+        docs["rows"].forEach(document => {
+            newDocs.push(document.doc);
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+
     return newDocs;
 }
 
