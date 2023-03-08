@@ -25,7 +25,7 @@ exports.loginAuthController = asyncHandler(async (req, res) => {
             res.setHeader('Access-Control-Expose-Headers', '*');
             res.setHeader('Access-Control-Allow-Headers', '*');
             res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: 'None' });
-            res.cookie("role", result.role, { httpOnly: true, secure: true, sameSite: 'None' });
+            res.cookie("administration", result.administration, { httpOnly: true, secure: true, sameSite: 'None' });
             res.sendStatus(SUCCESS);
         }
         else {
@@ -63,11 +63,10 @@ exports.logoutAuthController = asyncHandler(async (req, res) => {
 });
 
 exports.getUserRoleController = asyncHandler(async (req, res) => {
-    console.log(req.cookies);
-    if (req.cookies["role"] === "administration") {
-        res.status(SUCCESS).json({ "role": req.cookies["role"] })
+    if (req.cookies["administration"]) {
+        res.status(SUCCESS).json(true)
     }
     else {
-        res.status(SUCCESS).json({ "role": null });
+        res.status(SUCCESS).json(false);
     }
 });

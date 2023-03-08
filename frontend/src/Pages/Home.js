@@ -40,10 +40,10 @@ function Home() {
         const getRole = async () => {
             try {
                 const response = await getUserRole();
-
+                console.log(response);
                 if (response.status === axios.HttpStatusCode.Ok) {
-                    setRole(response.data.role);
-                    sessionStorage.setItem("role", response.data.role);
+                    setRole(response.data);
+                    sessionStorage.setItem("administration", response.data);
                 }
                 else {
                     setRole(null);
@@ -135,7 +135,7 @@ function Home() {
                     <div className="row justify-content-center">
                         <button className="btn btn-success col-3 m-1" onClick={() => navigate("/createModule")}>Create Module</button>
                         <button className="btn btn-primary col-3 m-1" onClick={() => navigate("/updateModule")}>Update Module</button>
-                        {role === "administration" && <button className="btn btn-warning col-3 m-1" onClick={() => navigate("/overview")}>Overview</button>}
+                        {role && <button className="btn btn-warning col-3 m-1" onClick={() => navigate("/overview")}>Overview</button>}
                     </div>
 
                 </div>

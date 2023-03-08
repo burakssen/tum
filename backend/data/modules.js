@@ -53,6 +53,8 @@ exports.getAllModulesData = async () => {
                 createdModules.push({ document_id: module.doc["document_id"], ...module.doc["versions"][key] });
             })
         });
+
+        console.got()
     } catch (err) {
         console.log(err);
     }
