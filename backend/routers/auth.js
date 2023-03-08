@@ -6,7 +6,8 @@ const {
     loginAuthController,
     tokenAuthController,
     logoutAuthController,
-    createUserController
+    createUserController,
+    getUserRoleController
 } = require("../controllers/auth");
 const { authenticateToken } = require("../utils/authenticateToken");
 
@@ -42,6 +43,14 @@ router.post(
     requestValidator(endpoints.logout),
     authenticateToken,
     logoutAuthController
+)
+
+router.get(
+    endpoints.getUserRole,
+    validationHandler,
+    requestValidator(endpoints.getUserRole),
+    authenticateToken,
+    getUserRoleController
 )
 
 module.exports = router;

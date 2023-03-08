@@ -18,10 +18,25 @@ exports.requestValidator = (method) => {
         case endpoints.get: {
             return [];
         }
+        case endpoints.getAllModules: {
+            return [];
+        }
         case endpoints.getMeta: {
             return [];
         }
+        case endpoints.getAllStatus: {
+            return [];
+        }
         case endpoints.getModuleVersion: {
+            return [];
+        }
+        case endpoints.getUpdatedModules: {
+            return [];
+        }
+        case endpoints.getUpdatedModule: {
+            return [];
+        }
+        case endpoints.editUpdatedModule: {
             return [];
         }
         default:

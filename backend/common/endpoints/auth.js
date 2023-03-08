@@ -3,5 +3,5 @@ exports.endpoints = {
     logout: "/logout",
     token: "/token",
     create: "/create",
-    check: "/check"
+    getUserRole: "/getUserRole"
 }

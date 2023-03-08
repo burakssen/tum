@@ -6,9 +6,14 @@ const {
     createModuleController,
     updateModuleController,
     getModuleController,
+    getAllModulesController,
     getMetaModuleController,
+    getAllStatusController,
     getModuleVersionController,
-    editModuleController
+    editModuleController,
+    getUpdatedModulesController,
+    getUpdatedModuleController,
+    editUpdatedModuleController
 } = require("../controllers/modules");
 const { authenticateToken } = require("../utils/authenticateToken");
 
@@ -42,12 +47,28 @@ router.get(
 );
 
 router.get(
+    endpoints.getAllModules,
+    validationHandler,
+    requestValidator(endpoints.getAllModules),
+    authenticateToken,
+    getAllModulesController
+)
+
+router.get(
     endpoints.getMeta,
     validationHandler,
     requestValidator(endpoints.getMeta),
     authenticateToken,
     getMetaModuleController
 );
+
+router.get(
+    endpoints.getAllStatus,
+    validationHandler,
+    requestValidator(endpoints.getAllStatus),
+    authenticateToken,
+    getAllStatusController
+)
 
 router.get(
     endpoints.getModuleVersion,
@@ -63,6 +84,30 @@ router.post(
     requestValidator(endpoints.update),
     authenticateToken,
     updateModuleController
+)
+
+router.get(
+    endpoints.getUpdatedModules,
+    validationHandler,
+    requestValidator(endpoints.getUpdatedModules),
+    authenticateToken,
+    getUpdatedModulesController
+)
+
+router.get(
+    endpoints.getUpdatedModule,
+    validationHandler,
+    requestValidator(endpoints.getUpdatedModule),
+    authenticateToken,
+    getUpdatedModuleController
+)
+
+router.post(
+    endpoints.editUpdatedModule,
+    validationHandler,
+    requestValidator(endpoints.editUpdatedModule),
+    authenticateToken,
+    editUpdatedModuleController
 )
 
 module.exports = router;

@@ -3,6 +3,11 @@ exports.endpoints = {
     update: "/update",
     edit: "/edit",
     get: "/get",
+    getAllModules: "/getAllModules",
     getMeta: "/getMeta",
-    getModuleVersion: "/getModuleVersion"
+    getAllStatus: "/getAllStatus",
+    getModuleVersion: "/getModuleVersion",
+    getUpdatedModules: "/getUpdatedModules",
+    getUpdatedModule: "/getUpdatedModule",
+    editUpdatedModule: "/editUpdatedModule"
 }

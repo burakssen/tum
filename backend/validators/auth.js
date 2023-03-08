@@ -16,10 +16,18 @@ exports.requestValidator = (method) => {
         case endpoints.logout: {
             return [];
         }
-        case endpoints.token: { }
+        case endpoints.token: {
             return [];
-        case endpoints.create: { }
+        }
+
+        case endpoints.create: {
             return [];
+        }
+        case endpoints.getUserRole: {
+            return [];
+        }
+
+
         default:
             break;
     }

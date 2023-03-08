@@ -17,7 +17,8 @@ exports.getWithUsernameData = async (_username) => {
 exports.createUserData = async (_body) => {
     return await db.insert({
         username: _body.username,
-        password: await cryptPassword(_body.password)
+        password: await cryptPassword(_body.password),
+        role: _body.role ? _body.role : "normal"
     });
 }
 
