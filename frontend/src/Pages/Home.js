@@ -85,9 +85,9 @@ function Home() {
 
                 </div>
                 <div className="row-12 justify-content-start align-items-center d-flex flex-column align-self-start pb-5">
-                    <button className="btn btn-secondary col-10  m-1" onClick={() => navigate("/createModule")}>Neues Modul beantragen</button>
-                    <button className="btn btn-secondary col-10 m-1" onClick={() => navigate("/updateModule")}>Änderung bei bereits bestehendem Modul beantragen</button>
-                    {role && <button className="btn btn-secondary col-10 m-1" onClick={() => navigate("/overview")}>Modulübersicht</button>}
+                    <button className="btn btn-secondary col-10 text-start m-1" onClick={() => navigate("/createModule")}>Neues Modul beantragen</button>
+                    <button className="btn btn-secondary col-10 text-start m-1" onClick={() => navigate("/updateModule")}>Änderung bei bereits bestehendem Modul beantragen</button>
+                    {role && <button className="btn btn-secondary text-start col-10 m-1" onClick={() => navigate("/overview")}>Modulübersicht</button>}
                 </div>
                 <div className="row align-items-center justify-content-center flex-column pt-5 ">
                     <h3 className="text-start">Modul-Neuanlagen ({moduleList.length})</h3>
@@ -106,8 +106,8 @@ function Home() {
                                 moduleList.map((module, index) => {
                                     return getModuleVersions(module).map((version, versionIndex) => {
                                         return (<tr key={version}>
-                                            <th className="text-start">{module["versions"][version]["module_id"]}</th>
-                                            <th className="text-start">{module["versions"][version]["titel_de"]}</th>
+                                            <th className="text-start" style={{ fontWeight: "normal" }}>{module["versions"][version]["module_id"]}</th>
+                                            <th className="text-start" style={{ fontWeight: "normal" }}>{module["versions"][version]["titel_de"]}</th>
                                             <th><button className="btn btn-secondary m-0" style={{ width: "100%" }} onClick={() => { navigate("/editCreate", { state: { document_id: module["_id"], version: version } }) }}>Ändern</button></th>
                                             <th><button className="btn btn-secondary m-0" style={{ width: "100%" }} onClick={() => { delDocument(module["_id"], module["_rev"]) }}>Löschen</button></th>
                                         </tr>);
@@ -137,8 +137,8 @@ function Home() {
                                 updatedModuleList.map((module, index) => {
 
                                     return (<tr key={index}>
-                                        <th className="text-start">{module["module_id"]}</th>
-                                        <th className="text-start">{module["titel_de"]}</th>
+                                        <th className="text-start" style={{ fontWeight: "normal" }}>{module["module_id"]}</th>
+                                        <th className="text-start" style={{ fontWeight: "normal" }}>{module["titel_de"]}</th>
                                         <th><button className="btn btn-secondary" style={{ width: "100%" }}
                                             onClick={() => { navigate("/editUpdate", { state: { document_id: module["_id"] } }) }}
                                         >Ändern</button></th>
