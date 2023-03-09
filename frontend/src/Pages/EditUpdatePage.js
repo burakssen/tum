@@ -161,9 +161,12 @@ function EditUpdatePage() {
                     <label className="col-2 col-sm-3 text-start">Module Id : </label>
                     <input className="col-6" type="text" value={module_id} placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
                 </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Streichung : </label>
-                    <input className="col-6" type="checkbox" checked={streichung} onChange={() => { setStreichung(!streichung) }} />
+                <div className="col-lg-7 col-sm-12 m-1 p-0 row d-flex align-items-center justify-content-center">
+                    <label className="col-2 col-sm-3 text-start p-0 m-0">Streichung : </label>
+                    <div className="col-6 d-flex p-0">
+                        <input className="align-self-start" type="checkbox" checked={streichung} onChange={() => { setStreichung(!streichung) }} />
+
+                    </div>
                 </div>
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
                     <label className="col-2 col-sm-3 text-start">Modulverantwortlicher : </label>

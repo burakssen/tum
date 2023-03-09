@@ -218,9 +218,11 @@ function CreateModulePage() {
                     <label className="col-2 col-sm-3 text-start">Zuordnung Coc : </label>
                     <input className="col-6" type="text" placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
                 </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0 ">
-                    <label className="col-2 col-sm-3 text-start">Modulbeschreibung Liegt Vor: </label>
-                    <input className="col-6 " type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+                <div className="col-lg-7 col-sm-12 m-1 p-0 row d-flex align-items-center justify-content-center">
+                    <label className="col-2 col-sm-3 text-start p-0 m-0">Modulbeschreibung Liegt Vor: </label>
+                    <div className="col-6 d-flex p-0">
+                        <input className="align-self-left" type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+                    </div>
                 </div>
                 <div className="col-6">
                     <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
