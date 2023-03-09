@@ -346,7 +346,7 @@ function SaveOverview() {
                         </div>
                         <div className="row  align-self-center justify-content-center flex-row" >
                             <button className="col btn btn-secondary m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
-                            <button className="col btn btn-secondary m-1" onClick={handleSubmit}>Modul status beantragen</button>
+                            <button className="col btn btn-secondary m-1" onClick={handleSubmit}>Speichern</button>
                         </div>
                     </div>
                 </div>
