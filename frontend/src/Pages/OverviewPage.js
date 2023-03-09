@@ -71,31 +71,32 @@ function OverviewPage() {
                             <tr>
                                 <td className="text-start align-top p-1">1</td>
                                 <td className="text-start align-top p-1">Erfasst</td>
-                                <td></td>
+
+                                <td className="text-start align-top p-1">2</td>
+                                <td className="text-start align-top p-1">TUMonline angelegt</td>
+
                                 <td className="text-start align-top p-1">3</td>
                                 <td className="text-start align-top p-1">Studienkommission</td>
-                                <td></td>
-                                <td className="text-start align-top p-1">5</td>
-                                <td className="text-start align-top p-1">TUMonline fertiggestellt</td>
-                                <td></td>
-                                <td className="text-start align-top p-1">7</td>
-                                <td className="text-start align-top p-1">Web geändert</td>
+
+                                <td className="text-start align-top p-1">4</td>
+                                <td className="text-start align-top p-1">Teaching Council</td>
                             </tr>
                         </thead>
                         <tbody >
                             <tr>
-                                <td className="text-start align-top p-1">2</td>
-                                <td className="text-start align-top p-1">TUMonline angelegt</td>
-                                <td></td>
-                                <td className="text-start align-top p-1">4</td>
-                                <td className="text-start align-top p-1">Teaching Council</td>
-                                <td></td>
+                                <td className="text-start align-top p-1">5</td>
+                                <td className="text-start align-top p-1">TUMonline fertiggestellt</td>
+
                                 <td className="text-start align-top p-1">6</td>
                                 <td className="text-start align-top p-1">Modulliste geändert</td>
-                                <td></td>
+
+                                <td className="text-start align-top p-1">7</td>
+                                <td className="text-start align-top p-1">Web geändert</td>
+
                                 <td className="text-start align-top p-1">8</td>
                                 <td className="text-start align-top p-1">Studienrichtungsempfehlung</td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>
