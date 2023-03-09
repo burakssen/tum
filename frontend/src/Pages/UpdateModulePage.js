@@ -235,6 +235,8 @@ function UpdateModulePage() {
                             <input className="col-4 p-0" disabled={!changeDozent} type="textbox" placeholder="Neuer Dozent:in" onChange={(e) => { setNeuerDozent(e.target.value) }} />
                         </div>
                     </div>
+                    <br />
+                    <br />
 
                     <button className="col-lg-2 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
                     <button className="col-lg-2 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmit}>Modul beantragen</button>

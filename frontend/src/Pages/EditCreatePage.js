@@ -263,6 +263,9 @@ function EditCreatePage() {
 
                     </div>
                 </div>
+                <br />
+                <br />
+
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
                     <button className="btn btn-secondary col-lg-3 col-sm-6 m-1" onClick={() => { navigate("/home") }}>Abbrechen</button>
                     <button className="btn btn-secondary col-lg-3 col-sm-6 m-1" onClick={handleSubmitModule}>Änderung übertragen</button>
