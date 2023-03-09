@@ -121,9 +121,9 @@ function OverviewPage() {
                                     {
                                         modules.createdModules.map((module, index) => {
                                             return (<tr key={index}>
-                                                <th className="text-start p-3">{module["titel_de"]}</th>
-                                                <th className="text-start p-3">{module["module_id"]}</th>
-                                                <th className="text-start p-3">{module["antragsteller"]}</th>
+                                                <th className="text-start p-3" style={{ fontWeight: "normal" }}>{module["titel_de"]}</th>
+                                                <th className="text-start p-3" style={{ fontWeight: "normal" }}>{module["module_id"]}</th>
+                                                <th className="text-start p-3" style={{ fontWeight: "normal" }}>{module["antragsteller"]}</th>
                                                 <th className="row align-items-start justify-content-start p-3">
                                                     {createdStatusRows[module["document_id"]]}
                                                 </th>
@@ -156,9 +156,9 @@ function OverviewPage() {
 
                                         modules.updatedModules.map((module, index) => {
                                             return (<tr key={index}>
-                                                <th className="text-start p-3">{module["titel_de"]}</th>
-                                                <th className="text-start p-3">{module["module_id"]}</th>
-                                                <th className="text-start p-3">{module["antragsteller"]}</th>
+                                                <th className="text-start p-3" style={{ fontWeight: "normal" }}>{module["titel_de"]}</th>
+                                                <th className="text-start p-3" style={{ fontWeight: "normal" }}>{module["module_id"]}</th>
+                                                <th className="text-start p-3" style={{ fontWeight: "normal" }}>{module["antragsteller"]}</th>
                                                 <th className="row align-items-start justify-content-start p-3">
                                                     {updatedStatusRows[module["_id"]]}
                                                 </th>
