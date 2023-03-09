@@ -42,7 +42,7 @@ function LoginPage() {
       <div className="row align-items-center justify-content-center flex-fill flex-column">
         <input className="col-lg-3 col-sm-6 m-2" type="text" placeholder="Tum-Kennung" name="kennung" onChange={(e) => setUsername(e.target.value)} />
         <input className="col-lg-3 col-sm-6 m-2" type="password" placeholder="Passwort" name="password" onChange={(e) => setPassword(e.target.value)} />
-        <button className="col-lg-3 col-sm-6 m-2 btn btn-primary" onClick={() => login(username, password)}>Anmeldung</button>
+        <button className="col-lg-3 col-sm-6 m-2 btn btn-secondary" onClick={() => login(username, password)}>Anmeldung</button>
 
       </div>
 

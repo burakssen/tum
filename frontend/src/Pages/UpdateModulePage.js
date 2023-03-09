@@ -235,8 +235,8 @@ function UpdateModulePage() {
                         </div>
                     </div>
 
-                    <button className="col-lg-2 col-sm-6 m-1 btn btn-danger" onClick={() => { navigate("/home") }}>Abbrechen</button>
-                    <button className="col-lg-2 col-sm-6 m-1 btn btn-success" onClick={handleSubmit}>Modul beantragen</button>
+                    <button className="col-lg-2 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="col-lg-2 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmit}>Modul beantragen</button>
 
                 </div>
             </div>

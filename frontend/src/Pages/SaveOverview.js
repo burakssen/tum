@@ -345,8 +345,8 @@ function SaveOverview() {
                             </table>
                         </div>
                         <div className="row  align-self-center justify-content-center flex-row" >
-                            <button className="col btn btn-danger m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
-                            <button className="col btn btn-success m-1" onClick={handleSubmit}>Modul status beantragen</button>
+                            <button className="col btn btn-secondary m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
+                            <button className="col btn btn-secondary m-1" onClick={handleSubmit}>Modul status beantragen</button>
                         </div>
                     </div>
                 </div>
@@ -515,8 +515,8 @@ function SaveOverview() {
                             </table>
                         </div>
                         <div className="row  align-self-center justify-content-center flex-row" >
-                            <button className="col btn btn-danger m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
-                            <button className="col btn btn-success m-1" onClick={handleSubmit}>Speichern</button>
+                            <button className="col btn btn-secondary m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
+                            <button className="col btn btn-secondary m-1" onClick={handleSubmit}>Speichern</button>
                         </div>
                     </div>
 

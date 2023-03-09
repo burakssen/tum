@@ -65,46 +65,36 @@ function OverviewPage() {
         <div className="container">
             <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
                 <div className="col-lg-12 col-sm-12 pt-5"><h2>Übersichtseite</h2></div>
-                <div className="col-4 justify-content-start align-items-start" style={{ padding: "5vh 0vh 0vh 0vh" }}>
-                    <table className="table table-bordered ">
+                <div className="col-3 justify-content-start align-items-start" style={{ padding: "5vh 0vh 0vh 0vh" }}>
+                    <table className="table table-bordered justify-content-start align-items-start">
                         <thead>
                             <tr>
-                                <th >#</th>
-                                <th>Status</th>
+                                <td className="text-start align-top p-1">1</td>
+                                <td className="text-start align-top p-1">Erfasst</td>
+                                <td></td>
+                                <td className="text-start align-top p-1">3</td>
+                                <td className="text-start">Studienkommission</td>
+                                <td></td>
+                                <td className="text-start align-top p-1">5</td>
+                                <td className="text-start align-top p-1">TUMonline fertiggestellt</td>
+                                <td></td>
+                                <td className="text-start align-top p-1">7</td>
+                                <td className="text-start align-top p-1">Web geändert</td>
                             </tr>
                         </thead>
                         <tbody >
                             <tr>
-                                <td>1</td>
-                                <td className="text-start">Erfasst</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td className="text-start">TUMonline angelegt</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td className="text-start">Studienkommission</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td className="text-start">Teaching Council</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td className="text-start">TUMonline fertiggestellt</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td className="text-start">Modulliste geändert</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td className="text-start">Web geändert</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td className="text-start">Studienrichtungsempfehlung</td>
+                                <td className="text-start align-top p-1">2</td>
+                                <td className="text-start align-top p-1">TUMonline angelegt</td>
+                                <td></td>
+                                <td className="text-start align-top p-1">4</td>
+                                <td className="text-start align-top p-1">Teaching Council</td>
+                                <td></td>
+                                <td className="text-start align-top p-1">6</td>
+                                <td className="text-start align-top p-1">Modulliste geändert</td>
+                                <td></td>
+                                <td className="text-start align-top p-1">8</td>
+                                <td className="text-start align-top p-1">Studienrichtungsempfehlung</td>
                             </tr>
                         </tbody>
                     </table>
@@ -135,7 +125,7 @@ function OverviewPage() {
                                         <th className="row align-items-center justify-content-center p-3">
                                             {createdStatusRows[module["document_id"]]}
                                         </th>
-                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Bearbeiten</button></th>
+                                        <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Bearbeiten</button></th>
                                     </tr>);
                                 })
                             }
@@ -167,7 +157,7 @@ function OverviewPage() {
                                         <th className="row align-items-center justify-content-center p-3">
                                             {updatedStatusRows[module["_id"]]}
                                         </th>
-                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Bearbeiten</button></th>
+                                        <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Bearbeiten</button></th>
                                     </tr>);
                                 })
                             }
@@ -176,7 +166,7 @@ function OverviewPage() {
 
 
                 </div>
-                <button className="col-3 btn btn-danger m-4 align-self-end" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                <button className="col-3 btn btn-secondary m-4 align-self-end" onClick={() => { navigate("/home") }}>Abbrechen</button>
                 <br />
             </div >
         </div >

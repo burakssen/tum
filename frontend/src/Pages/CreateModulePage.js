@@ -223,8 +223,8 @@ function CreateModulePage() {
                     <input className="col-6 " type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
                 </div>
                 <div className="col-6">
-                    <button className="col-lg-3 col-sm-6 m-1 btn btn-danger" onClick={() => { navigate("/home") }}>Abbrechen</button>
-                    <button className="col-lg-3 col-sm-6 m-1 btn btn-success" onClick={handleSubmitModule}>Modul beantragen</button>
+                    <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmitModule}>Modul beantragen</button>
                 </div>
             </div>
         </div>

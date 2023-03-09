@@ -261,8 +261,8 @@ function EditCreatePage() {
                     <input className="m-1" type="checkbox" checked={modulbeschreibung_liegt_vor} onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
                 </div>
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <button className="btn btn-danger col-lg-3 col-sm-6 m-1" onClick={() => { navigate("/home") }}>Abbrechen</button>
-                    <button className="btn btn-success col-lg-3 col-sm-6 m-1" onClick={handleSubmitModule}>Änderung übertragen</button>
+                    <button className="btn btn-secondary col-lg-3 col-sm-6 m-1" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="btn btn-secondary col-lg-3 col-sm-6 m-1" onClick={handleSubmitModule}>Änderung übertragen</button>
                 </div>
             </div>
         </div >
