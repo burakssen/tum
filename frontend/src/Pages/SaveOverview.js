@@ -85,6 +85,7 @@ function SaveOverview() {
             cModule["module_id"] ? setModule_id(cModule["module_id"]) : setModule_id("");
             Object.keys(currentModule)[0] ? setVersion(Object.keys(currentModule)[0]) : setVersion("");
             cModule["antragsteller"] ? setAntragsteller(cModule["antragsteller"]) : setAntragsteller("");
+
             cModule["modulverantwortlicher"] ? setModulverantwortlicher(cModule["modulverantwortlicher"]) : setModulverantwortlicher("");
             cModule["semester_start"] ? setSemester_start(cModule["semester_start"]) : setSemester_start("");
             cModule["titel_de"] ? setTitel_de(cModule["titel_de"]) : setTitel_de("");

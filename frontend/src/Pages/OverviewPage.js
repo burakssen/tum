@@ -32,10 +32,10 @@ function OverviewPage() {
                 let createdIndex = 0;
                 Object.keys(module["status"]).forEach((key, index) => {
                     createdStatus[module.document_id].push(<div key={index} className="col-1 text-success p-0">{key}</div>);
-                    createdIndex = index;
+                    createdIndex += 1;
                 });
 
-                for (let i = createdIndex + 1; i < 8; i++) {
+                for (let i = createdIndex; i < 8; i++) {
                     createdStatus[module.document_id].push(<div key={i} className="col-1 text-danger p-0">{i + 1}</div>)
                 }
             });
@@ -46,9 +46,9 @@ function OverviewPage() {
                 let updatedIndex = 0;
                 Object.keys(module["status"]).forEach((key, index) => {
                     updatedStatus[module._id].push(<div key={index} className="col-1 text-success p-0">{key}</div>);
-                    updatedIndex = index;
+                    updatedIndex += 1;
                 });
-                for (let i = updatedIndex + 1; i < 8; i++) {
+                for (let i = updatedIndex; i < 8; i++) {
                     updatedStatus[module._id].push(<div key={i} className="col-1 text-danger p-0">{i + 1}</div>)
                 }
             });
