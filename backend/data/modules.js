@@ -233,6 +233,7 @@ exports.getUpdatedModuleData = async (document_id) => {
 exports.editUpdatedModuleData = async (module) => {
     const doc = await db_updated_modules.get(module.document_id);
     module.module_id ? doc["module_id"] = module.module_id : {};
+    module.streichung !== undefined ? doc["streichung"] = module.streichung : {};
     module.modulverantwortlicher ? doc["modulverantwortlicher"] = module.modulverantwortlicher : {};
     module.semester_start ? doc["semester_start"] = module.semester_start : {};
     module.titel_de ? doc["titel_de"] = module.titel_de : {};
@@ -245,24 +246,32 @@ exports.editUpdatedModuleData = async (module) => {
     module.semester ? doc["semester"] = module.semester : {};
     module.type ? doc["type"] = module.type : {};
     module.studiengaenge ? doc["studiengaenge"] = module.studiengaenge : {};
+    console.log("Hellllloo");
     return await db_updated_modules.insert(doc);
 }
 
 exports.updateCStatusData = async (status) => {
     const doc = await db_created_modules.get(status.document_id);
     Object.keys(status).forEach((key) => {
-        if (key !== "document_id")
+        if (key !== "document_id" && key !== "module_id" && key !== "version")
             doc["versions"][Object.keys(doc["versions"])[0]]["status"][key] = status[key];
     });
+
+
+    doc["versions"][Object.keys(doc["versions"])[0]]["module_id"] = status.module_id;
+    doc["versions"][status.version] = doc["versions"][Object.keys(doc["versions"])[0]];
+    console.log(doc["versions"][status.version]);
+    delete doc["versions"]["000000"];
+
     return await db_created_modules.insert(doc);
 }
 
 exports.updateUStatusData = async (status) => {
     const doc = await db_updated_modules.get(status.document_id);
     Object.keys(status).forEach((key) => {
-        if (key !== "document_id") {
+        if (key !== "document_id" && key !== "module_id" && key !== "version")
             doc["status"][key] = status[key];
-        }
+
     });
 
     return await db_updated_modules.insert(doc);

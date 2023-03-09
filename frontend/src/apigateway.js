@@ -112,16 +112,18 @@ export async function getUserRole() {
     return await axios.get(gateway + "/api/auth/getUserRole", { withCredentials: true });
 }
 
-export async function updateStatus(document_id, statusValues, pageType) {
+export async function updateStatus(document_id, moduleChange, statusValues, pageType) {
     if (pageType === "create") {
         return await axios.post(gateway + "/api/modules/updateCStatus", {
             "document_id": document_id,
+            ...moduleChange,
             ...statusValues
         }, { withCredentials: true });
     }
     else {
         return await axios.post(gateway + "/api/modules/updateUStatus", {
             "document_id": document_id,
+            ...moduleChange,
             ...statusValues
         }, { withCredentials: true });
     }

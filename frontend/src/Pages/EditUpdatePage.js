@@ -125,6 +125,7 @@ function EditUpdatePage() {
     const handleSubmitModule = async () => {
         const module = {
             "document_id": document_id,
+            "streichung": streichung,
             ...(module_id && { "module_id": module_id }),
             ...(modulverantwortlicher && { "modulverantwortlicher": modulverantwortlicher }),
             ...(semester_start && { "semester_start": semester_start }),

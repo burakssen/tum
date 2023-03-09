@@ -118,6 +118,10 @@ function SaveOverview() {
     }, [meta, currentModule, pageType]);
 
     const handleSubmit = async () => {
+        const moduleChange = {
+            ...(module_id && { "module_id": module_id }),
+            ...(version && { "version": version })
+        }
         const statusValues = {
             ...(check1.value && { "1": { "datum": check1.datum, "person": check1.person } }),
             ...(check2.value && { "2": { "datum": check2.datum, "person": check2.person } }),
@@ -130,7 +134,7 @@ function SaveOverview() {
 
         }
         try {
-            const response = await updateStatus(document_id, statusValues, pageType);
+            const response = await updateStatus(document_id, moduleChange, statusValues, pageType);
             if (response.status === axios.HttpStatusCode.Ok) {
                 navigate("/overview");
             }
@@ -148,13 +152,13 @@ function SaveOverview() {
                     <div className="col-12 text-center flex-fill">
                         <div className="row align-items-center justify-content-center p-5 flex-fill">
                             <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                <label className="col-2 col-sm-3 text-start">Module Id : </label>
-                                <input disabled className="col-6" value={module_id} type="text" placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
+                                <label className="col-2 col-sm-3 text-start">Module-Nummer : </label>
+                                <input className="col-6" value={module_id} type="text" placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
                             </div>
 
                             <div className="col-lg-7 col-sm-12 m-1 p-0">
                                 <label className="col-2 col-sm-3 text-start">Version : </label>
-                                <input disabled className="col-6" value={version} type="text" placeholder="Version" onChange={(e) => { setVersion(e.target.value) }} />
+                                <input className="col-6" value={version} type="text" placeholder="Version" onChange={(e) => { setVersion(e.target.value) }} />
                             </div>
                             <div className="col-lg-7 col-sm-12 m-1 p-0">
                                 <label className="col-2 col-sm-3 text-start">Antragsteller : </label>
@@ -355,8 +359,8 @@ function SaveOverview() {
                     <div className="col-12 text-center flex-fill">
                         <div className="row align-items-center justify-content-center p-5 flex-fill">
                             <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                <label className="col-2 col-sm-3 text-start">Module Id : </label>
-                                <input disabled className="col-6" type="text" value={module_id} placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
+                                <label className="col-2 col-sm-3 text-start">Modul-Nummer : </label>
+                                <input className="col-6" type="text" value={module_id} placeholder="Modul-Nummer" onChange={(e) => { setModule_id(e.target.value) }} />
                             </div>
                             <div className="col-lg-7 col-sm-12 m-1 p-0">
                                 <label className="col-2 col-sm-3 text-start">Streichung : </label>

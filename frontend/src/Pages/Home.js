@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { logoutUser } from "../apigateway";
+import { logoutUser, updateModule } from "../apigateway";
 import { useNavigate } from "react-router-dom";
 import { getModules, getUpdatedModules, getUserRole, deleteDocument } from "../apigateway";
 import axios from "axios";
@@ -90,14 +90,13 @@ function Home() {
                     {role && <button className="btn btn-warning col-10 m-1" onClick={() => navigate("/overview")}>Modulübersicht</button>}
                 </div>
                 <div className="row align-items-center justify-content-center flex-column pt-5 ">
-                    <h3 className="text-start">Modul-Neuanlagen</h3>
+                    <h3 className="text-start">Modul-Neuanlagen ({moduleList.length})</h3>
                     <br />
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Modul-Nummer</th>
-                                <th>Modul-Titel</th>
+                                <th className="text-start">Modul-Nummer</th>
+                                <th className="text-start" style={{ width: "50%" }}>Modul-Titel</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -107,12 +106,10 @@ function Home() {
                                 moduleList.map((module, index) => {
                                     return getModuleVersions(module).map((version, versionIndex) => {
                                         return (<tr key={version}>
-                                            <th>{index + 1}</th>
-                                            <th>{module["versions"][version]["module_id"]}</th>
-                                            <th>{module["versions"][version]["titel_de"]}</th>
-                                            <th><button className="btn btn-secondary" style={{ width: "100%" }} onClick={() => { navigate("/editCreate", { state: { document_id: module["_id"], version: version } }) }}>Ändern</button></th>
-                                            <th><button className="btn btn-danger" style={{ width: "100%" }} onClick={() => { delDocument(module["_id"], module["_rev"]) }}>Löschen</button></th>
-
+                                            <th className="text-start">{module["versions"][version]["module_id"]}</th>
+                                            <th className="text-start">{module["versions"][version]["titel_de"]}</th>
+                                            <th><button className="btn btn-secondary m-0" style={{ width: "50%" }} onClick={() => { navigate("/editCreate", { state: { document_id: module["_id"], version: version } }) }}>Ändern</button></th>
+                                            <th><button className="btn btn-danger m-0" style={{ width: "50%" }} onClick={() => { delDocument(module["_id"], module["_rev"]) }}>Löschen</button></th>
                                         </tr>);
                                     })
                                 })
@@ -123,14 +120,13 @@ function Home() {
                 </div>
                 <div className="p-5"></div>
                 <div className="row align-items-center justify-content-center flex-column pt-5">
-                    <h3 className="text-start">Modul-Änderungen</h3>
+                    <h3 className="text-start">Modul-Änderungen ({updatedModuleList.length})</h3>
                     <br />
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Modul-Nummer</th>
-                                <th>Modul-Titel</th>
+                                <th className="text-start" style={{ width: "50%" }}>Modul-Nummer</th>
+                                <th className="text-start">Modul-Titel</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -141,13 +137,12 @@ function Home() {
                                 updatedModuleList.map((module, index) => {
 
                                     return (<tr key={index}>
-                                        <th>{index + 1}</th>
-                                        <th>{module["module_id"]}</th>
-                                        <th>{module["titel_de"]}</th>
-                                        <th><button className="btn btn-secondary" style={{ width: "100%" }}
+                                        <th className="text-start">{module["module_id"]}</th>
+                                        <th className="text-start">{module["titel_de"]}</th>
+                                        <th><button className="btn btn-secondary" style={{ width: "50%" }}
                                             onClick={() => { navigate("/editUpdate", { state: { document_id: module["_id"] } }) }}
                                         >Ändern</button></th>
-                                        <th><button className="btn btn-danger" style={{ width: "100%" }}
+                                        <th><button className="btn btn-danger" style={{ width: "50%" }}
                                             onClick={() => { delDocument(module["_id"], module["_rev"]) }}
                                         >Löschen</button></th>
                                     </tr>);

@@ -80,8 +80,8 @@ function CreateModulePage() {
 
     const handleSubmitModule = async () => {
         const module = {
-            "version": version,
-            "module_id": module_id,
+            "version": "000000",
+            "module_id": "000000",
             "antragsteller": antragsteller,
             "modulverantwortlicher": modulverantwortlicher,
             "semester_start": semester_start,
@@ -121,15 +121,7 @@ function CreateModulePage() {
         <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
             <div className="col-lg-12 col-sm-12 pt-5"><h2>Neues Modul beantragen</h2></div>
             <div className="row align-items-center justify-content-start p-5 flex-fill flex-column">
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Module Id : </label>
-                    <input className="col-6" type="text" placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
-                </div>
 
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Version : </label>
-                    <input className="col-6" type="text" placeholder="Version" onChange={(e) => { setVersion(e.target.value) }} />
-                </div>
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
                     <label className="col-2 col-sm-3 text-start">Antragsteller : </label>
                     <input className="col-6" type="text" placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />

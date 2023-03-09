@@ -96,7 +96,7 @@ function EditCreatePage() {
         console.log(currentModule);
 
         if (currentModule) {
-            currentModule["module_id"] ? setModule_id(currentModule["module_id"]) : setModule_id("");
+            //currentModule["module_id"] ? setModule_id(currentModule["module_id"]) : setModule_id("");
             currentModule["antragsteller"] ? setAntragsteller(currentModule["antragsteller"]) : setAntragsteller("");
             currentModule["modulverantwortlicher"] ? setModulverantwortlicher(currentModule["modulverantwortlicher"]) : setModulverantwortlicher("");
             currentModule["semester_start"] ? setSemester_start(currentModule["semester_start"]) : setSemester_start("");
@@ -124,7 +124,7 @@ function EditCreatePage() {
         const module = {
             "document_id": document_id,
             "version": version,
-            ...(module_id !== "" && { "module_id": module_id }),
+            //...(module_id !== "" && { "module_id": module_id }),
             ...(antragsteller !== "" && { "antragsteller": antragsteller }),
             ...(modulverantwortlicher !== "" && { "modulverantwortlicher": modulverantwortlicher }),
             ...(semester_start !== "" && { "semester_start": semester_start }),
@@ -154,10 +154,7 @@ function EditCreatePage() {
         <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
             <div className="col-lg-12 col-sm-12 pt-5 m-0"><h2>Neues Modul ändern</h2></div>
             <div className="row align-items-center justify-content-center flex-fill flex-column">
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Module Id : </label>
-                    <input className="col-6" type="text" value={module_id} placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
-                </div>
+
 
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
                     <label className="col-2 col-sm-3 text-start">Antragsteller : </label>
