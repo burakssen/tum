@@ -118,118 +118,123 @@ function CreateModulePage() {
     }
 
     return (
-        <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
+
+        <div className="text-center d-flex flex-column flex-fill" style={{ height: "100vh" }}>
             <div className="col-lg-12 col-sm-12 pt-5"><h2>Neues Modul beantragen</h2></div>
-            <div className="row align-items-center justify-content-start p-5 flex-fill flex-column">
+            <div className="row-12 align-items-center justify-content-center flex-fill flex-column">
+                <div className="container align-items-center justify-content-center flex-fill flex-column">
+                    <div className="container align-items-center justify-content-center flex-fill flex-column">
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Antragsteller : </label>
+                            <input className="col-6" type="text" placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Modulverantwortlicher : </label>
+                            <input className="col-6" type="text" placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Semester Start : </label>
+                            <input className="col-6" type="text" placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Titel DE : </label>
+                            <input className="col-6" type="text" placeholder="Titel DE" onChange={(e) => { setTitel_de(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Titel EN : </label>
+                            <input className="col-6" type="text" placeholder="Titel EN" onChange={(e) => { setTitel_en(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Dozenten : </label>
+                            <input className="col-6" type="text" placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">SWS V : </label>
+                            <input className="col-6" type="number" placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">SWS U : </label>
+                            <input className="col-6" type="number" placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">SWS P : </label>
+                            <input className="col-6" type="number" placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Stunden Eigenstudium : </label>
+                            <input className="col-6" type="number" placeholder="Stunden Eigenstudium" onChange={(e) => { setStunden_eigenstudium(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Credits : </label>
+                            <input className="col-6" type="number" placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-1 col-sm-3 text-start pl-2 pr-2">Types : </label>
+                            {
+                                <Select
+                                    className="col-6 p-0 m-0"
+                                    name="types"
+                                    options={typesOptions}
+                                    onChange={(e) => { setType(e.value); }}
+                                />
+                            }
+                        </div>
 
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Antragsteller : </label>
-                    <input className="col-6" type="text" placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Modulverantwortlicher : </label>
-                    <input className="col-6" type="text" placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Semester Start : </label>
-                    <input className="col-6" type="text" placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Titel DE : </label>
-                    <input className="col-6" type="text" placeholder="Titel DE" onChange={(e) => { setTitel_de(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Titel EN : </label>
-                    <input className="col-6" type="text" placeholder="Titel EN" onChange={(e) => { setTitel_en(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Dozenten : </label>
-                    <input className="col-6" type="text" placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">SWS V : </label>
-                    <input className="col-6" type="number" placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">SWS U : </label>
-                    <input className="col-6" type="number" placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">SWS P : </label>
-                    <input className="col-6" type="number" placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Stunden Eigenstudium : </label>
-                    <input className="col-6" type="number" placeholder="Stunden Eigenstudium" onChange={(e) => { setStunden_eigenstudium(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Credits : </label>
-                    <input className="col-6" type="number" placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
-                    <label className="col-1 col-sm-3 text-start p-0">Types : </label>
-                    {
-                        <Select
-                            className="col-6 p-0"
-                            name="types"
-                            options={typesOptions}
-                            onChange={(e) => { setType(e.value); }}
-                        />
-                    }
-                </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-1 col-sm-3 text-start pl-2 pr-2">Semester : </label>
+                            {
+                                <Select
+                                    className="col-6 p-0"
+                                    name="semester"
+                                    options={semesterOptions}
+                                    onChange={(e) => { setSemester(e.value); }}
+                                />
+                            }
+                        </div>
 
-                <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
-                    <label className="col-1 col-sm-3 text-start p-0">Semester : </label>
-                    {
-                        <Select
-                            className="col-6 p-0"
-                            name="semester"
-                            options={semesterOptions}
-                            onChange={(e) => { setSemester(e.value); }}
-                        />
-                    }
-                </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-1 col-sm-3 text-start pl-2 pr-2">Studiengaenge : </label>
 
-                <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
-                    <label className="col-1 col-sm-3 text-start p-0">Studiengaenge : </label>
+                            {
+                                <Select
+                                    className="col-6 p-0"
+                                    name="studiengaenge"
+                                    isMulti
+                                    options={studiengaengeOptions}
+                                    onChange={(e) => {
+                                        const stud = [];
+                                        e.forEach((selection) => {
+                                            stud.push(selection.value);
+                                        });
+                                        setStudiengaenge(stud);
+                                    }}
+                                />
+                            }
+                        </div>
 
-                    {
-                        <Select
-                            className="col-6 p-0"
-                            name="studiengaenge"
-                            isMulti
-                            options={studiengaengeOptions}
-                            onChange={(e) => {
-                                const stud = [];
-                                e.forEach((selection) => {
-                                    stud.push(selection.value);
-                                });
-                                setStudiengaenge(stud);
-                            }}
-                        />
-                    }
-                </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Abgestimmt Mit : </label>
+                            <input className="col-6" type="text" placeholder="Abgestimmt Mit" onChange={(e) => { setAbgestimmt_mit(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start">Zuordnung Coc : </label>
+                            <input className="col-6" type="text" placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 col-sm-3 text-start pl-2 pr-2">Modulbeschreibung Liegt Vor: </label>
+                            <div className="col-6 d-flex p-0">
+                                <input className="align-self-left" type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+                            </div>
+                        </div>
 
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Abgestimmt Mit : </label>
-                    <input className="col-6" type="text" placeholder="Abgestimmt Mit" onChange={(e) => { setAbgestimmt_mit(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-2 col-sm-3 text-start">Zuordnung Coc : </label>
-                    <input className="col-6" type="text" placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
-                </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0 row d-flex align-items-center justify-content-center">
-                    <label className="col-2 col-sm-3 text-start p-0 m-0">Modulbeschreibung Liegt Vor: </label>
-                    <div className="col-6 d-flex p-0">
-                        <input className="align-self-left" type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+
                     </div>
+                    <br />
+                    <br />
+                    <button className="col-lg-3 col-md-3 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="col-lg-3 col-md-3 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmitModule}>Modul Beantragen</button>
+
                 </div>
-                <br />
-                <br />
-
-                <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
-                <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmitModule}>Modul Beantragen</button>
-
             </div>
         </div>
     );
