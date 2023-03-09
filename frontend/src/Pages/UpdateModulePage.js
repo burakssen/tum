@@ -104,7 +104,8 @@ function UpdateModulePage() {
             ...(changeStudiengaenge && { "studiengaenge": neueStudiengaenge }),
             ...(changeSemester && { "semester": neueSemester }),
             ...(changeModulverantwortlicher && { "modulverantwortlicher": neuerModulverantwortlicher }),
-            ...(changeDozent && { "dozent": neuerDozent })
+            ...(changeDozent && { "dozent": neuerDozent }),
+            "state": {}
         }
 
         try {

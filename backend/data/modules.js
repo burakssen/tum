@@ -25,7 +25,8 @@ exports.createModuleData = async (module) => {
                 "studiengaenge": module.studiengaenge,
                 "abgestimmt_mit": module.abgestimmt_mit,
                 "zuordnung_coc": module.zuordnung_coc,
-                "modulbeschreibung_liegt_vor": module.modulbeschreibung_liegt_vor
+                "modulbeschreibung_liegt_vor": module.modulbeschreibung_liegt_vor,
+                "status": {}
             }
         }
     });

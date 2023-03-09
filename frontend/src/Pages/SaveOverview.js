@@ -62,7 +62,7 @@ function SaveOverview() {
 
         const fetchModule = async () => {
             try {
-                const module = await getModuleVersion(document_id, pageType);
+                const module = await getModuleVersion(document_id, "", pageType);
                 setCurrentModule(module.data);
             }
             catch (err) {
