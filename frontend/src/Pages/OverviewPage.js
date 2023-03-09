@@ -73,7 +73,7 @@ function OverviewPage() {
                                 <td className="text-start align-top p-1">Erfasst</td>
                                 <td></td>
                                 <td className="text-start align-top p-1">3</td>
-                                <td className="text-start">Studienkommission</td>
+                                <td className="text-start align-top p-1">Studienkommission</td>
                                 <td></td>
                                 <td className="text-start align-top p-1">5</td>
                                 <td className="text-start align-top p-1">TUMonline fertiggestellt</td>
