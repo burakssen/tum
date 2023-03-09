@@ -52,8 +52,8 @@ function EditCreatePage() {
 
         const fetchModule = async () => {
             try {
-                const module = await getModuleVersion(document_id, version);
-                setCurrentModule(module.data);
+                const module = await getModuleVersion(document_id, version, "create");
+                setCurrentModule(module.data[Object.keys(module.data)[0]]);
             }
             catch (err) {
                 console.log(err);
@@ -92,6 +92,8 @@ function EditCreatePage() {
             setStudiengaengeOptions(t_studiengaenge);
             setSemesterOptions(t_semester);
         }
+
+        console.log(currentModule);
 
         if (currentModule) {
             currentModule["module_id"] ? setModule_id(currentModule["module_id"]) : setModule_id("");

@@ -45,7 +45,7 @@ export async function getAllModules() {
     return await axios.get(gateway + "/api/modules/getAllModules", { withCredentials: true });
 }
 
-export async function getModuleVersion(document_id, pageType) {
+export async function getModuleVersion(document_id, version, pageType) {
     if (pageType === "create") {
         return await axios.get(gateway + "/api/modules/getModuleVersion", {
             params: {

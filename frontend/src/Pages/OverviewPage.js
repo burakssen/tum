@@ -109,6 +109,7 @@ function OverviewPage() {
                         </tbody>
                     </table>
                 </div>
+
                 <div className="row align-items-center justify-content-center flex-column" style={{ padding: "5vh 0vh 0vh 0vh" }}>
                     <h3 className="text-start">Modul-Neuanlagen</h3>
                     <br />
@@ -175,6 +176,8 @@ function OverviewPage() {
 
 
                 </div>
+                <button className="col-3 btn btn-danger m-4 align-self-end" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                <br />
             </div >
         </div >
     );

@@ -262,255 +262,262 @@ function SaveOverview() {
                         </div>
                     </div>
                     <div className="col-5 jusify-self-start p-1">
-                        <table className="col-12 table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th className="col-4">Aktion</th>
-                                    <th></th>
-                                    <th>Datum</th>
-                                    <th>Person</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>In Tool/Datenbank erfasst:</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
-                                        onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check1.value }) }} /></td>
-                                    <td>{check1.value && check1.datum}</td>
-                                    <td>{check1.value && check1.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>In TUMonline angelegt</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check2.value })
-                                    }} /></td>
-                                    <td>{check2.value && check2.datum}</td>
-                                    <td>{check2.value && check2.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>In Studienkommission verabschiedet</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check3.value })
-                                    }} /></td>
-                                    <td>{check3.value && check3.datum}</td>
-                                    <td>{check3.value && check3.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>In Teaching council verabschiedet</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check4.value })
-                                    }} /></td>
-                                    <td>{check4.value && check4.datum}</td>
-                                    <td>{check4.value && check4.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>In TUMonline fertiggestellt</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check5.value })
-                                    }} /></td>
-                                    <td>{check5.value && check5.datum}</td>
-                                    <td>{check5.value && check5.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>Auf Modulliste geändert</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check6.value })
-                                    }} /></td>
-                                    <td>{check6.value && check6.datum}</td>
-                                    <td>{check6.value && check6.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>Im Web geändert</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check7.value })
-                                    }} /></td>
-                                    <td>{check7.value && check7.datum}</td>
-                                    <td>{check7.value && check7.person}</td>
-                                </tr>
-                                <tr>
-                                    <td>In Studienrichtungsempfehlungen</td>
-                                    <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
-                                        const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check8.value })
-                                    }} /></td>
-                                    <td>{check8.value && check8.datum}</td>
-                                    <td>{check8.value && check8.person}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className="row">
+                            <table className="col-12 table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th className="col-4">Aktion</th>
+                                        <th></th>
+                                        <th>Datum</th>
+                                        <th>Person</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>In Tool/Datenbank erfasst:</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
+                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check1.value }) }} /></td>
+                                        <td>{check1.value && check1.datum}</td>
+                                        <td>{check1.value && check1.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In TUMonline angelegt</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check2.value })
+                                        }} /></td>
+                                        <td>{check2.value && check2.datum}</td>
+                                        <td>{check2.value && check2.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In Studienkommission verabschiedet</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check3.value })
+                                        }} /></td>
+                                        <td>{check3.value && check3.datum}</td>
+                                        <td>{check3.value && check3.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In Teaching council verabschiedet</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check4.value })
+                                        }} /></td>
+                                        <td>{check4.value && check4.datum}</td>
+                                        <td>{check4.value && check4.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In TUMonline fertiggestellt</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check5.value })
+                                        }} /></td>
+                                        <td>{check5.value && check5.datum}</td>
+                                        <td>{check5.value && check5.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Auf Modulliste geändert</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check6.value })
+                                        }} /></td>
+                                        <td>{check6.value && check6.datum}</td>
+                                        <td>{check6.value && check6.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Im Web geändert</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check7.value })
+                                        }} /></td>
+                                        <td>{check7.value && check7.datum}</td>
+                                        <td>{check7.value && check7.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In Studienrichtungsempfehlungen</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check8.value })
+                                        }} /></td>
+                                        <td>{check8.value && check8.datum}</td>
+                                        <td>{check8.value && check8.person}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="row  align-self-center justify-content-center flex-row" >
+                            <button className="col btn btn-danger m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
+                            <button className="col btn btn-success m-1" onClick={handleSubmit}>Modul status beantragen</button>
+                        </div>
                     </div>
                 </div>
 
             }
             {
                 pageType === "update" &&
-                <div>
-                    <div className="row justify-content-center align-items-center">
-                        <div className="col-2 pt-5"><h2>Status ändern</h2></div>
-                        <div className="col-12 text-center flex-fill">
-                            <div className="row align-items-center justify-content-center p-5 flex-fill">
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Module Id : </label>
-                                    <input disabled className="col-6" type="text" value={module_id} placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Streichung : </label>
-                                    <input disabled className="col-6" type="checkbox" checked={streichung} onChange={() => { setStreichung(!streichung) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Modulverantwortlicher : </label>
-                                    <input disabled className="col-6" type="text" value={modulverantwortlicher} placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Semester Start : </label>
-                                    <input disabled className="col-6" type="text" value={semester_start} placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Titel DE : </label>
-                                    <input disabled className="col-6" type="text" value={titel_de} placeholder="Titel DE" onChange={(e) => { setTitel_de(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Titel EN : </label>
-                                    <input disabled className="col-6" type="text" value={titel_en} placeholder="Titel EN" onChange={(e) => { setTitel_en(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Dozenten : </label>
-                                    <input disabled className="col-6" type="text" value={dozenten} placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">SWS V : </label>
-                                    <input disabled className="col-6" type="number" value={sws_v} placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">SWS U : </label>
-                                    <input disabled className="col-6" type="number" value={sws_u} placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">SWS P : </label>
-                                    <input disabled className="col-6" type="number" value={sws_p} placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
-                                </div>
-                                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                                    <label className="col-2 col-sm-3 text-start">Credits : </label>
-                                    <input disabled className="col-6" type="number" value={credits} placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
-                                </div>
-
-                                <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
-                                    <label className="col-1 col-sm-3 text-start p-0">Types : </label>
-                                    <Select
-                                        isDisabled
-                                        className="col-6 p-0"
-                                        name="types"
-                                        value={type}
-                                    />
-                                </div>
-
-                                <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
-                                    <label className="col-1 col-sm-3 text-start p-0">Semester : </label>
-                                    <Select
-                                        isDisabled
-                                        className="col-6 p-0"
-                                        name="semester"
-                                        value={semester}
-                                    />
-
-                                </div>
-
-                                <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
-                                    <label className="col-1 col-sm-3 text-start p-0">Studiengaenge : </label>
-                                    <Select
-                                        isDisabled
-                                        className="col-6 p-0"
-                                        name="studiengaenge"
-                                        isMulti
-                                        value={studiengaenge}
-                                    />
-                                </div>
+                <div className="row justify-content-center align-items-center flex-fill">
+                    <div className="col-2 pt-5"><h2>Status ändern</h2></div>
+                    <div className="col-12 text-center flex-fill">
+                        <div className="row align-items-center justify-content-center p-5 flex-fill">
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Module Id : </label>
+                                <input disabled className="col-6" type="text" value={module_id} placeholder="Module Id" onChange={(e) => { setModule_id(e.target.value) }} />
                             </div>
-                            <div className="col-5 jusify-self-center justify-content-center p-1">
-                                <table className="col-12 table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th className="col-4">Aktion</th>
-                                            <th></th>
-                                            <th>Datum</th>
-                                            <th>Person</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>In Tool/Datenbank erfasst:</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
-                                                onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check1.value }) }} /></td>
-                                            <td>{check1.value && check1.datum}</td>
-                                            <td>{check1.value && check1.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>In TUMonline angelegt</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check2.value })
-                                            }} /></td>
-                                            <td>{check2.value && check2.datum}</td>
-                                            <td>{check2.value && check2.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>In Studienkommission verabschiedet</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check3.value })
-                                            }} /></td>
-                                            <td>{check3.value && check3.datum}</td>
-                                            <td>{check3.value && check3.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>In Teaching council verabschiedet</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check4.value })
-                                            }} /></td>
-                                            <td>{check4.value && check4.datum}</td>
-                                            <td>{check4.value && check4.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>In TUMonline fertiggestellt</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check5.value })
-                                            }} /></td>
-                                            <td>{check5.value && check5.datum}</td>
-                                            <td>{check5.value && check5.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Auf Modulliste geändert</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check6.value })
-                                            }} /></td>
-                                            <td>{check6.value && check6.datum}</td>
-                                            <td>{check6.value && check6.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Im Web geändert</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check7.value })
-                                            }} /></td>
-                                            <td>{check7.value && check7.datum}</td>
-                                            <td>{check7.value && check7.person}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>In Studienrichtungsempfehlungen</td>
-                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
-                                                const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check8.value })
-                                            }} /></td>
-                                            <td>{check8.value && check8.datum}</td>
-                                            <td>{check8.value && check8.person}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Streichung : </label>
+                                <input disabled className="col-6" type="checkbox" checked={streichung} onChange={() => { setStreichung(!streichung) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Modulverantwortlicher : </label>
+                                <input disabled className="col-6" type="text" value={modulverantwortlicher} placeholder="Modulverantwortlicher" onChange={(e) => { setModulverantwortlicher(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Semester Start : </label>
+                                <input disabled className="col-6" type="text" value={semester_start} placeholder="Semester Start" onChange={(e) => { setSemester_start(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Titel DE : </label>
+                                <input disabled className="col-6" type="text" value={titel_de} placeholder="Titel DE" onChange={(e) => { setTitel_de(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Titel EN : </label>
+                                <input disabled className="col-6" type="text" value={titel_en} placeholder="Titel EN" onChange={(e) => { setTitel_en(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Dozenten : </label>
+                                <input disabled className="col-6" type="text" value={dozenten} placeholder="Dozenten" onChange={(e) => { setDozenten(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">SWS V : </label>
+                                <input disabled className="col-6" type="number" value={sws_v} placeholder="SWS V" onChange={(e) => { setSws_v(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">SWS U : </label>
+                                <input disabled className="col-6" type="number" value={sws_u} placeholder="SWS U" onChange={(e) => { setSws_u(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">SWS P : </label>
+                                <input disabled className="col-6" type="number" value={sws_p} placeholder="SWS P" onChange={(e) => { setSws_p(e.target.value) }} />
+                            </div>
+                            <div className="col-lg-7 col-sm-12 m-1 p-0">
+                                <label className="col-2 col-sm-3 text-start">Credits : </label>
+                                <input disabled className="col-6" type="number" value={credits} placeholder="Credits" onChange={(e) => { setCredits(e.target.value) }} />
+                            </div>
+
+                            <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
+                                <label className="col-1 col-sm-3 text-start p-0">Types : </label>
+                                <Select
+                                    isDisabled
+                                    className="col-6 p-0"
+                                    name="types"
+                                    value={type}
+                                />
+                            </div>
+
+                            <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
+                                <label className="col-1 col-sm-3 text-start p-0">Semester : </label>
+                                <Select
+                                    isDisabled
+                                    className="col-6 p-0"
+                                    name="semester"
+                                    value={semester}
+                                />
+
+                            </div>
+
+                            <div className="col-lg-7 col-sm-12 m-1 p-0 row justify-content-center align-items-center">
+                                <label className="col-1 col-sm-3 text-start p-0">Studiengaenge : </label>
+                                <Select
+                                    isDisabled
+                                    className="col-6 p-0"
+                                    name="studiengaenge"
+                                    isMulti
+                                    value={studiengaenge}
+                                />
                             </div>
                         </div>
-
                     </div>
+                    <div className="flex-column col-5 jusify-self-start p-1">
+                        <div className="row ">
+                            <table className="col-12 table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th className="col-4">Aktion</th>
+                                        <th></th>
+                                        <th>Datum</th>
+                                        <th>Person</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>In Tool/Datenbank erfasst:</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
+                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check1.value }) }} /></td>
+                                        <td>{check1.value && check1.datum}</td>
+                                        <td>{check1.value && check1.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In TUMonline angelegt</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check2.value })
+                                        }} /></td>
+                                        <td>{check2.value && check2.datum}</td>
+                                        <td>{check2.value && check2.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In Studienkommission verabschiedet</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check3.value })
+                                        }} /></td>
+                                        <td>{check3.value && check3.datum}</td>
+                                        <td>{check3.value && check3.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In Teaching council verabschiedet</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check4.value })
+                                        }} /></td>
+                                        <td>{check4.value && check4.datum}</td>
+                                        <td>{check4.value && check4.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In TUMonline fertiggestellt</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check5.value })
+                                        }} /></td>
+                                        <td>{check5.value && check5.datum}</td>
+                                        <td>{check5.value && check5.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Auf Modulliste geändert</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check6.value })
+                                        }} /></td>
+                                        <td>{check6.value && check6.datum}</td>
+                                        <td>{check6.value && check6.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Im Web geändert</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check7.value })
+                                        }} /></td>
+                                        <td>{check7.value && check7.datum}</td>
+                                        <td>{check7.value && check7.person}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>In Studienrichtungsempfehlungen</td>
+                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
+                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check8.value })
+                                        }} /></td>
+                                        <td>{check8.value && check8.datum}</td>
+                                        <td>{check8.value && check8.person}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="row  align-self-center justify-content-center flex-row" >
+                            <button className="col btn btn-danger m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
+                            <button className="col btn btn-success m-1" onClick={handleSubmit}>Modul status beantragen</button>
+                        </div>
+                    </div>
+
                 </div>
             }
-            <div className="row-6 align-self-center justify-content-center" >
-                <button className="btn btn-success" onClick={handleSubmit}>Submit Module</button>
 
-            </div>
         </div >
 
     );
