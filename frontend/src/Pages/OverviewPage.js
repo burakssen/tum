@@ -146,7 +146,8 @@ function OverviewPage() {
                                     <tr>
                                         <th className="text-start">Modultitel</th>
                                         <th className="text-start">Modul-Nummer</th>
-                                        <th className="text-start"> Status</th>
+                                        <th className="text-start">Antragsteller</th>
+                                        <th className="text-start">Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -157,6 +158,7 @@ function OverviewPage() {
                                             return (<tr key={index}>
                                                 <th className="text-start p-3">{module["titel_de"]}</th>
                                                 <th className="text-start p-3">{module["module_id"]}</th>
+                                                <th className="text-start p-3">{module["antragsteller"]}</th>
                                                 <th className="row align-items-start justify-content-start p-3">
                                                     {updatedStatusRows[module["_id"]]}
                                                 </th>

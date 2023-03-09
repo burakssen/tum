@@ -17,6 +17,8 @@ function UpdateModulePage() {
     const [neuerTitelEN, setNeuerTitelEN] = useState();
     const [neuerTitelDE, setNeuerTitelDE] = useState();
 
+    const [antragsteller, setAntragsteller] = useState();
+
     const [changeNeuCredits, setChangeNeuCredits] = useState(false);
     const [neuCredits, setNeuCredits] = useState();
 
@@ -96,6 +98,7 @@ function UpdateModulePage() {
         const module = {
             "module_id": module_nummer,
             "streichung": streichung,
+            "antragsteller": antragsteller,
             ...(changeNeuerTitel && { "titel_de": neuerTitelDE, "titel_en": neuerTitelEN }),
             ...(changeNeuCredits && { "credits": neuCredits }),
             ...(changeNeuSemesterStart && { "semester_start": neuerSemesterStart }),
@@ -109,11 +112,17 @@ function UpdateModulePage() {
         }
 
         try {
-            const response = await updateModule(module);
-            if (response.status === axios.HttpStatusCode.Ok) {
-                navigate("/home");
-                toast.success("Module Update Created");
+            if (antragsteller && antragsteller !== "" && module_nummer && module_nummer != "") {
+                const response = await updateModule(module);
+                if (response.status === axios.HttpStatusCode.Ok) {
+                    navigate("/home");
+                    toast.success("Module Update Created");
+                }
             }
+            else {
+                toast.error("Please provide Antragsteller and Module-Nummer");
+            }
+
 
         } catch (err) {
             console.log(err);
@@ -132,6 +141,11 @@ function UpdateModulePage() {
                             <div className="col-1"></div>
 
                             <input className="col-4" type="text" placeholder={"Modul-Nummer"} onChange={(e) => { setModuleNummer(e.target.value) }} />
+                        </div>
+                        <div className="row d-flex align-items-center justify-content-center m-2">
+                            <label className="col-2 text-start">Antragsteller : </label>
+                            <div className="col-1"></div>
+                            <input className="col-4" type="text" placeholder="Antragsteller" onChange={(e) => { setAntragsteller(e.target.value) }} />
                         </div>
                         <div className="row d-flex align-items-center justify-content-center m-2">
                             <label className="col-2 text-start">Streichung des Moduls: </label>
