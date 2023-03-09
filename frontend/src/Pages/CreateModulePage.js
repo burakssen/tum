@@ -227,10 +227,9 @@ function CreateModulePage() {
                 <br />
                 <br />
 
-                <div className="col-6">
-                    <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
-                    <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmitModule}>Modul beantragen</button>
-                </div>
+                <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                <button className="col-lg-3 col-sm-6 m-1 btn btn-secondary" onClick={handleSubmitModule}>Modul Beantragen</button>
+
             </div>
         </div>
     );
