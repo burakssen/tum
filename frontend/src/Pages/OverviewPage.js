@@ -110,10 +110,10 @@ function OverviewPage() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th className="text-start">Modultitel</th>
-                                        <th className="text-start">Module-Nummer</th>
+                                        <th className="text-start" style={{ width: "40%" }}>Modultitel</th>
+                                        <th className="text-start" style={{ width: "20%" }}>Module-Nummer</th>
                                         <th className="text-start">Antragsteller</th>
-                                        <th className="text-start">Status</th>
+                                        <th className="text-start" style={{ width: "10%" }}>Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -144,10 +144,10 @@ function OverviewPage() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th className="text-start">Modultitel</th>
-                                        <th className="text-start">Modul-Nummer</th>
+                                        <th className="text-start" style={{ width: "40%" }}>Modultitel</th>
+                                        <th className="text-start" style={{ width: "20%" }}>Modul-Nummer</th>
                                         <th className="text-start">Antragsteller</th>
-                                        <th className="text-start">Status</th>
+                                        <th className="text-start" style={{ width: "10%" }}>Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
