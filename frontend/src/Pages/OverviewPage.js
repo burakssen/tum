@@ -31,12 +31,12 @@ function OverviewPage() {
                 createdStatus[module.document_id] = [];
                 let createdIndex = 0;
                 Object.keys(module["status"]).forEach((key, index) => {
-                    createdStatus[module.document_id].push(<div key={index} className="col-1 text-success p-0">{key}</div>);
+                    createdStatus[module.document_id].push(<div key={index} className="col-1 text-dark p-0">{key}</div>);
                     createdIndex += 1;
                 });
 
                 for (let i = createdIndex; i < 8; i++) {
-                    createdStatus[module.document_id].push(<div key={i} className="col-1 text-danger p-0">{i + 1}</div>)
+                    createdStatus[module.document_id].push(<div key={i} className="col-1 text-secondary p-0">{i + 1}</div>)
                 }
             });
 
@@ -45,11 +45,11 @@ function OverviewPage() {
                 updatedStatus[module._id] = [];
                 let updatedIndex = 0;
                 Object.keys(module["status"]).forEach((key, index) => {
-                    updatedStatus[module._id].push(<div key={index} className="col-1 text-success p-0">{key}</div>);
+                    updatedStatus[module._id].push(<div key={index} className="col-1 text-dark p-0">{key}</div>);
                     updatedIndex += 1;
                 });
                 for (let i = updatedIndex; i < 8; i++) {
-                    updatedStatus[module._id].push(<div key={i} className="col-1 text-danger p-0">{i + 1}</div>)
+                    updatedStatus[module._id].push(<div key={i} className="col-1 text-secondary p-0">{i + 1}</div>)
                 }
             });
 
@@ -101,64 +101,73 @@ function OverviewPage() {
                 </div>
 
                 <div className="row align-items-center justify-content-center flex-column pt-5" style={{ padding: "5vh 0vh 0vh 0vh" }}>
-                    <h3 className="text-start">Modul-Neuanlagen</h3>
-                    <br />
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th className="text-start">Modultitel</th>
-                                <th className="text-start">Module-Nummer</th>
-                                <th className="text-start">Antragsteller</th>
-                                <th className="text-start">Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                modules && modules.createdModules.map((module, index) => {
-                                    return (<tr key={index}>
-                                        <th className="text-start p-3">{module["titel_de"]}</th>
-                                        <th className="text-start p-3">{module["module_id"]}</th>
-                                        <th className="text-start p-3">{module["antragsteller"]}</th>
-                                        <th className="row align-items-start justify-content-start p-3">
-                                            {createdStatusRows[module["document_id"]]}
-                                        </th>
-                                        <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Bearbeiten</button></th>
-                                    </tr>);
-                                })
-                            }
-                        </tbody>
-                    </table>
-                    <br />
+                    {
+                        modules &&
+                        <div>
+                            <h3 className="text-start">Modul-Neuanlagen ({modules.createdModules.length})</h3>
+                            <br />
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th className="text-start">Modultitel</th>
+                                        <th className="text-start">Module-Nummer</th>
+                                        <th className="text-start">Antragsteller</th>
+                                        <th className="text-start">Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        modules.createdModules.map((module, index) => {
+                                            return (<tr key={index}>
+                                                <th className="text-start p-3">{module["titel_de"]}</th>
+                                                <th className="text-start p-3">{module["module_id"]}</th>
+                                                <th className="text-start p-3">{module["antragsteller"]}</th>
+                                                <th className="row align-items-start justify-content-start p-3">
+                                                    {createdStatusRows[module["document_id"]]}
+                                                </th>
+                                                <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Bearbeiten</button></th>
+                                            </tr>);
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                        </div>}
                 </div>
                 <div className="row align-items-center justify-content-center  flex-column" style={{ padding: "5vh 0vh 0vh 0vh" }}>
-                    <h3 className="text-start">Modul-Änderungen</h3>
-                    <br />
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th className="text-start">Modultitel</th>
-                                <th className="text-start">Modul-Nummer</th>
-                                <th className="text-start"> Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
+                    {
+                        modules && <div>
+                            <h3 className="text-start">Modul-Änderungen ({modules.updatedModules.length})</h3>
+                            <br />
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th className="text-start">Modultitel</th>
+                                        <th className="text-start">Modul-Nummer</th>
+                                        <th className="text-start"> Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
 
-                                modules && modules.updatedModules.map((module, index) => {
-                                    return (<tr key={index}>
-                                        <th className="text-start p-3">{module["titel_de"]}</th>
-                                        <th className="text-start p-3">{module["module_id"]}</th>
-                                        <th className="row align-items-start justify-content-start p-3">
-                                            {updatedStatusRows[module["_id"]]}
-                                        </th>
-                                        <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Bearbeiten</button></th>
-                                    </tr>);
-                                })
-                            }
-                        </tbody>
-                    </table>
+                                        modules.updatedModules.map((module, index) => {
+                                            return (<tr key={index}>
+                                                <th className="text-start p-3">{module["titel_de"]}</th>
+                                                <th className="text-start p-3">{module["module_id"]}</th>
+                                                <th className="row align-items-start justify-content-start p-3">
+                                                    {updatedStatusRows[module["_id"]]}
+                                                </th>
+                                                <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Bearbeiten</button></th>
+                                            </tr>);
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }
 
 
                 </div>
