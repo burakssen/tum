@@ -135,7 +135,7 @@ function OverviewPage() {
                                         <th className="row align-items-center justify-content-center p-3">
                                             {createdStatusRows[module["document_id"]]}
                                         </th>
-                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Status ändern</button></th>
+                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Bearbeiten</button></th>
                                     </tr>);
                                 })
                             }
@@ -167,7 +167,7 @@ function OverviewPage() {
                                         <th className="row align-items-center justify-content-center p-3">
                                             {updatedStatusRows[module["_id"]]}
                                         </th>
-                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Status ändern</button></th>
+                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Bearbeiten</button></th>
                                     </tr>);
                                 })
                             }
