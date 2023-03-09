@@ -36,7 +36,7 @@ function OverviewPage() {
                 });
 
                 for (let i = createdIndex; i < 8; i++) {
-                    createdStatus[module.document_id].push(<div key={i} className="col-1 text-secondary p-0">{i + 1}</div>)
+                    createdStatus[module.document_id].push(<div key={i} className="col-1 p-0" style={{ color: "lightgrey" }}>{i + 1}</div>)
                 }
             });
 
@@ -49,7 +49,7 @@ function OverviewPage() {
                     updatedIndex += 1;
                 });
                 for (let i = updatedIndex; i < 8; i++) {
-                    updatedStatus[module._id].push(<div key={i} className="col-1 text-secondary p-0">{i + 1}</div>)
+                    updatedStatus[module._id].push(<div key={i} className="col-1 p-0" style={{ color: "lightgrey" }}>{i + 1}</div>)
                 }
             });
 
