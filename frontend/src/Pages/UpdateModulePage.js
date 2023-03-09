@@ -105,7 +105,7 @@ function UpdateModulePage() {
             ...(changeSemester && { "semester": neueSemester }),
             ...(changeModulverantwortlicher && { "modulverantwortlicher": neuerModulverantwortlicher }),
             ...(changeDozent && { "dozent": neuerDozent }),
-            "state": {}
+            "status": {}
         }
 
         try {

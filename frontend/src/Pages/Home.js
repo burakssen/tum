@@ -95,9 +95,9 @@ function Home() {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th className="text-start">Modul-Nummer</th>
-                                <th className="text-start" style={{ width: "50%" }}>Modul-Titel</th>
-                                <th></th>
+                                <th className="text-start" style={{ width: "20%" }}>Modul-Nummer</th>
+                                <th className="text-start" style={{ width: "100%" }}>Modul-Titel</th>
+                                <th style={{ width: "100%" }}></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -108,8 +108,8 @@ function Home() {
                                         return (<tr key={version}>
                                             <th className="text-start">{module["versions"][version]["module_id"]}</th>
                                             <th className="text-start">{module["versions"][version]["titel_de"]}</th>
-                                            <th><button className="btn btn-secondary m-0" style={{ width: "50%" }} onClick={() => { navigate("/editCreate", { state: { document_id: module["_id"], version: version } }) }}>Ändern</button></th>
-                                            <th><button className="btn btn-danger m-0" style={{ width: "50%" }} onClick={() => { delDocument(module["_id"], module["_rev"]) }}>Löschen</button></th>
+                                            <th><button className="btn btn-secondary m-0" style={{ width: "100%" }} onClick={() => { navigate("/editCreate", { state: { document_id: module["_id"], version: version } }) }}>Ändern</button></th>
+                                            <th><button className="btn btn-danger m-0" style={{ width: "100%" }} onClick={() => { delDocument(module["_id"], module["_rev"]) }}>Löschen</button></th>
                                         </tr>);
                                     })
                                 })
@@ -125,10 +125,10 @@ function Home() {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th className="text-start" style={{ width: "50%" }}>Modul-Nummer</th>
-                                <th className="text-start">Modul-Titel</th>
-                                <th></th>
-                                <th></th>
+                                <th className="text-start" style={{ width: "20%" }}>Modul-Nummer</th>
+                                <th className="text-start" style={{ width: "100%" }}>Modul-Titel</th>
+                                <th style={{ width: "100%" }}></th>
+                                <th style={{ width: "100%" }}></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,10 +139,10 @@ function Home() {
                                     return (<tr key={index}>
                                         <th className="text-start">{module["module_id"]}</th>
                                         <th className="text-start">{module["titel_de"]}</th>
-                                        <th><button className="btn btn-secondary" style={{ width: "50%" }}
+                                        <th><button className="btn btn-secondary" style={{ width: "100%" }}
                                             onClick={() => { navigate("/editUpdate", { state: { document_id: module["_id"] } }) }}
                                         >Ändern</button></th>
-                                        <th><button className="btn btn-danger" style={{ width: "50%" }}
+                                        <th><button className="btn btn-danger" style={{ width: "100%" }}
                                             onClick={() => { delDocument(module["_id"], module["_rev"]) }}
                                         >Löschen</button></th>
                                     </tr>);
