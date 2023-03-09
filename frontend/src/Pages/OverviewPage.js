@@ -65,8 +65,8 @@ function OverviewPage() {
         <div className="container">
             <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
                 <div className="col-lg-12 col-sm-12 pt-5"><h2>Übersichtseite</h2></div>
-                <div className="col-3 justify-content-start align-items-start" style={{ padding: "5vh 0vh 0vh 0vh" }}>
-                    <table className="table table-bordered justify-content-start align-items-start">
+                <div className="col-12 justify-content-start align-items-start" style={{ padding: "5vh 0vh 0vh 0vh" }}>
+                    <table className="table table-borderless justify-content-start align-items-start">
                         <thead>
                             <tr>
                                 <td className="text-start align-top p-1">1</td>
