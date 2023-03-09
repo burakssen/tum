@@ -100,17 +100,16 @@ function OverviewPage() {
                     </table>
                 </div>
 
-                <div className="row align-items-center justify-content-center flex-column" style={{ padding: "5vh 0vh 0vh 0vh" }}>
+                <div className="row align-items-center justify-content-center flex-column pt-5" style={{ padding: "5vh 0vh 0vh 0vh" }}>
                     <h3 className="text-start">Modul-Neuanlagen</h3>
                     <br />
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Modultitel</th>
-                                <th>Module-Nummer</th>
-                                <th>Antragsteller</th>
-                                <th>Status</th>
+                                <th className="text-start">Modultitel</th>
+                                <th className="text-start">Module-Nummer</th>
+                                <th className="text-start">Antragsteller</th>
+                                <th className="text-start">Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -118,11 +117,10 @@ function OverviewPage() {
                             {
                                 modules && modules.createdModules.map((module, index) => {
                                     return (<tr key={index}>
-                                        <th className="p-3">{index + 1}</th>
-                                        <th className="p-3">{module["titel_de"]}</th>
-                                        <th className="p-3">{module["module_id"]}</th>
-                                        <th className="p-3">{module["antragsteller"]}</th>
-                                        <th className="row align-items-center justify-content-center p-3">
+                                        <th className="text-start p-3">{module["titel_de"]}</th>
+                                        <th className="text-start p-3">{module["module_id"]}</th>
+                                        <th className="text-start p-3">{module["antragsteller"]}</th>
+                                        <th className="row align-items-start justify-content-start p-3">
                                             {createdStatusRows[module["document_id"]]}
                                         </th>
                                         <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Bearbeiten</button></th>
@@ -139,10 +137,9 @@ function OverviewPage() {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Modultitel</th>
-                                <th>Modul-Nummer</th>
-                                <th>Status</th>
+                                <th className="text-start">Modultitel</th>
+                                <th className="text-start">Modul-Nummer</th>
+                                <th className="text-start"> Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -151,10 +148,9 @@ function OverviewPage() {
 
                                 modules && modules.updatedModules.map((module, index) => {
                                     return (<tr key={index}>
-                                        <th className="p-3">{index + 1}</th>
-                                        <th className="p-3">{module["titel_de"]}</th>
-                                        <th className="p-3">{module["module_id"]}</th>
-                                        <th className="row align-items-center justify-content-center p-3">
+                                        <th className="text-start p-3">{module["titel_de"]}</th>
+                                        <th className="text-start p-3">{module["module_id"]}</th>
+                                        <th className="row align-items-start justify-content-start p-3">
                                             {updatedStatusRows[module["_id"]]}
                                         </th>
                                         <th><button className="btn btn-secondary" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Bearbeiten</button></th>
