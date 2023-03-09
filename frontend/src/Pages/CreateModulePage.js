@@ -101,7 +101,6 @@ function CreateModulePage() {
             "modulbeschreibung_liegt_vor": modulbeschreibung_liegt_vor
         }
 
-        console.log(module);
 
         try {
             const response = await createModule(module);
@@ -120,7 +119,7 @@ function CreateModulePage() {
 
     return (
         <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
-            <div className="col-lg-12 col-sm-12 pt-5"><h2>Create Module Page</h2></div>
+            <div className="col-lg-12 col-sm-12 pt-5"><h2>Neues Modul beantragen</h2></div>
             <div className="row align-items-center justify-content-start p-5 flex-fill flex-column">
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
                     <label className="col-2 col-sm-3 text-start">Module Id : </label>
@@ -227,11 +226,14 @@ function CreateModulePage() {
                     <label className="col-2 col-sm-3 text-start">Zuordnung Coc : </label>
                     <input className="col-6" type="text" placeholder="Zuordnung Coc" onChange={(e) => { setZuordnung_coc(e.target.value) }} />
                 </div>
-                <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <label className="col-4 text-start">Modulbeschreibung Liegt Vor: </label>
-                    <input className="m-1" type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
+                <div className="col-lg-7 col-sm-12 m-1 p-0 ">
+                    <label className="col-2 col-sm-3 text-start">Modulbeschreibung Liegt Vor: </label>
+                    <input className="col-6 " type="checkbox" onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
                 </div>
-                <button className="col-lg-3 col-sm-6 m-1 btn btn-success" onClick={handleSubmitModule}>Submit Module</button>
+                <div className="col-6">
+                    <button className="col-lg-3 col-sm-6 m-1 btn btn-danger" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="col-lg-3 col-sm-6 m-1 btn btn-success" onClick={handleSubmitModule}>Modul beantragen</button>
+                </div>
             </div>
         </div>
     );

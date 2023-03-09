@@ -7,12 +7,16 @@ const {
     getModuleService,
     getMetaModuleService,
     getModuleVersionService,
+    getModuleUVersionService,
     editModuleService,
     updateModuleService,
     getUpdatedModulesService,
     getUpdatedModuleService,
     editUpdatedModuleService,
-    getAllStatusService
+    getAllStatusService,
+    updateCStatusService,
+    updateUStatusService,
+    deleteModuleService
 } = require("../services/modules");
 
 exports.createModuleController = asyncHandler(async (req, res) => {
@@ -50,6 +54,11 @@ exports.getModuleVersionController = asyncHandler(async (req, res) => {
     res.status(SUCCESS).json(result);
 });
 
+exports.getModuleUVersionController = asyncHandler(async (req, res) => {
+    const result = await getModuleUVersionService(req.query);
+    res.status(SUCCESS).json(result);
+});
+
 exports.updateModuleController = asyncHandler(async (req, res) => {
     const result = await updateModuleService(req.body);
     res.status(SUCCESS).json(result);
@@ -67,5 +76,20 @@ exports.getUpdatedModuleController = asyncHandler(async (req, res) => {
 
 exports.editUpdatedModuleController = asyncHandler(async (req, res) => {
     const result = await editUpdatedModuleService(req.body);
+    res.status(SUCCESS).json(result);
+});
+
+exports.updateCStatusController = asyncHandler(async (req, res) => {
+    const result = await updateCStatusService(req.body);
+    res.status(SUCCESS).json(result);
+});
+
+exports.updateUStatusController = asyncHandler(async (req, res) => {
+    const result = await updateUStatusService(req.body);
+    res.status(SUCCESS).json(result);
+})
+
+exports.deleteModuleController = asyncHandler(async (req, res) => {
+    const result = await deleteModuleService(req.body.username, req.body.document_id, req.body.rev);
     res.status(SUCCESS).json(result);
 });

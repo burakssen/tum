@@ -3,14 +3,14 @@ import { getAllModules, getAllStatus } from "../apigateway";
 import { useNavigate } from "react-router-dom";
 
 
+
 function OverviewPage() {
 
     const navigate = useNavigate();
     const [modules, setModules] = useState();
-    const [createdStatus, setCreatedStatus] = useState();
-    const [updatedStatus, setUpdatedStatus] = useState();
+
     const [createdStatusRows, setCreatedStatusRows] = useState([]);
-    const [updatedStatusRows, setupdatedStatusRows] = useState([]);
+    const [updatedStatusRows, setUpdatedStatusRows] = useState([]);
 
 
 
@@ -20,52 +20,104 @@ function OverviewPage() {
             setModules(response.data);
         }
 
-        const fetchAllStatus = async () => {
-            const response = await getAllStatus();
-            setCreatedStatus(response.data.createdStatus);
-            setUpdatedStatus(response.data.updatedStatus);
-        }
-
         fetchAllModules();
-        fetchAllStatus();
     }, [])
 
 
     useEffect(() => {
-        if (createdStatus) {
-            const statusRows = {};
-            Object.keys(createdStatus).forEach((key) => {
-                statusRows[key] = [];
-                let lastIndex = 0;
-                createdStatus[key].forEach((value, index) => {
-                    statusRows[key].push(<div className="col-1 p-0">{value}</div>);
-                    lastIndex = index + 1;
+        if (modules) {
+            let createdStatus = []
+            modules.createdModules.forEach((module) => {
+                createdStatus[module.document_id] = [];
+                let createdIndex = 0;
+                Object.keys(module["status"]).forEach((key, index) => {
+                    createdStatus[module.document_id].push(<div key={index} className="col-1 text-success p-0">{key}</div>);
+                    createdIndex = index;
                 });
 
-                for (let i = lastIndex; lastIndex < 8; lastIndex++) {
-                    statusRows[key].push(<div className="col-1 p-0 text-secondary">{i}</div>);
+                for (let i = createdIndex + 1; i < 8; i++) {
+                    createdStatus[module.document_id].push(<div key={i} className="col-1 text-danger p-0">{i + 1}</div>)
                 }
             });
-            console.log(statusRows);
-            setCreatedStatusRows(statusRows);
 
+            let updatedStatus = []
+            modules.updatedModules.forEach((module) => {
+                updatedStatus[module._id] = [];
+                let updatedIndex = 0;
+                Object.keys(module["status"]).forEach((key, index) => {
+                    updatedStatus[module._id].push(<div key={index} className="col-1 text-success p-0">{key}</div>);
+                    updatedIndex = index;
+                });
+                for (let i = updatedIndex + 1; i < 8; i++) {
+                    updatedStatus[module._id].push(<div key={i} className="col-1 text-danger p-0">{i + 1}</div>)
+                }
+            });
+
+
+            setCreatedStatusRows(createdStatus);
+            setUpdatedStatusRows(updatedStatus);
         }
 
-    }, [createdStatus, updatedStatus])
+
+    }, [modules])
 
     return (
         <div className="container">
             <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
-                <div className="col-lg-12 col-sm-12 pt-5"><h2>Overview Page</h2></div>
-                <div className="row align-items-center justify-content-center flex-fill flex-column">
-                    <h3>Created Modules</h3>
+                <div className="col-lg-12 col-sm-12 pt-5"><h2>Übersichtseite</h2></div>
+                <div className="col-4 justify-content-start align-items-start" style={{ padding: "5vh 0vh 0vh 0vh" }}>
+                    <table className="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th >#</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                <td>1</td>
+                                <td className="text-start">Erfasst</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td className="text-start">TUMonline angelegt</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td className="text-start">Studienkommission</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td className="text-start">Teaching Council</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td className="text-start">TUMonline fertiggestellt</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td className="text-start">Modulliste geändert</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td className="text-start">Web geändert</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td className="text-start">Studienrichtungsempfehlung</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="row align-items-center justify-content-center flex-column" style={{ padding: "5vh 0vh 0vh 0vh" }}>
+                    <h3 className="text-start">Modul-Neuanlagen</h3>
                     <br />
                     <table className="table">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Modultitel</th>
-                                <th>Modulenummer</th>
+                                <th>Module-Nummer</th>
                                 <th>Antragsteller</th>
                                 <th>Status</th>
                                 <th></th>
@@ -75,13 +127,14 @@ function OverviewPage() {
                             {
                                 modules && modules.createdModules.map((module, index) => {
                                     return (<tr key={index}>
-                                        <th>{index + 1}</th>
-                                        <th>{module["titel_de"]}</th>
-                                        <th>{module["module_id"]}</th>
-                                        <th>{module["antragsteller"]}</th>
-                                        <th className="row align-items-center justify-content-center">
-                                            {console.log(module["document_id"])}
+                                        <th className="p-3">{index + 1}</th>
+                                        <th className="p-3">{module["titel_de"]}</th>
+                                        <th className="p-3">{module["module_id"]}</th>
+                                        <th className="p-3">{module["antragsteller"]}</th>
+                                        <th className="row align-items-center justify-content-center p-3">
+                                            {createdStatusRows[module["document_id"]]}
                                         </th>
+                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["document_id"], pageType: "create" } }) }}>Status ändern</button></th>
                                     </tr>);
                                 })
                             }
@@ -89,31 +142,33 @@ function OverviewPage() {
                     </table>
                     <br />
                 </div>
-                <div className="row align-items-center justify-content-center flex-fill flex-column">
-                    <h3>Updated Modules</h3>
+                <div className="row align-items-center justify-content-center  flex-column" style={{ padding: "5vh 0vh 0vh 0vh" }}>
+                    <h3 className="text-start">Modul-Änderungen</h3>
                     <br />
                     <table className="table">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Module Id</th>
-                                <th>Streichung</th>
+                                <th>Modultitel</th>
+                                <th>Modul-Nummer</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
 
-                                /*updatedModuleList.map((module, index) => {
+                                modules && modules.updatedModules.map((module, index) => {
                                     return (<tr key={index}>
-                                        <th>{index + 1}</th>
-                                        <th>{module["module_id"]}</th>
-                                        <th>{module["streichung"] ? <b style={{ color: "red" }}>Deleted</b> : ""}</th>
-                                        <th><button className="btn btn-secondary" style={{ width: "100%" }}
-                                            onClick={() => { navigate("/editUpdate", { state: { document_id: module["_id"] } }) }}
-                                        >Edit</button></th>
+                                        <th className="p-3">{index + 1}</th>
+                                        <th className="p-3">{module["titel_de"]}</th>
+                                        <th className="p-3">{module["module_id"]}</th>
+                                        <th className="row align-items-center justify-content-center p-3">
+                                            {updatedStatusRows[module["_id"]]}
+                                        </th>
+                                        <th><button className="btn btn-warning" onClick={() => { navigate("/saveOverview", { state: { document_id: module["_id"], pageType: "update" } }) }} > Status ändern</button></th>
                                     </tr>);
-                                })*/
+                                })
                             }
                         </tbody>
                     </table>
@@ -121,7 +176,7 @@ function OverviewPage() {
 
                 </div>
             </div >
-        </div>
+        </div >
     );
 }
 

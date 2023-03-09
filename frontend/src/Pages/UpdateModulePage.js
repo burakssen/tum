@@ -100,7 +100,7 @@ function UpdateModulePage() {
             ...(changeNeuCredits && { "credits": neuCredits }),
             ...(changeNeuSemesterStart && { "semester_start": neuerSemesterStart }),
             ...(changeSWS && { "sws_v": neueSWS_V, "sws_u": neueSWS_U, "sws_p": neueSWS_P }),
-            ...(prüfungsart && { "type": neueType }),
+            ...(prüfungsart && { "prüfungsart": prüfungsart }),
             ...(changeStudiengaenge && { "studiengaenge": neueStudiengaenge }),
             ...(changeSemester && { "semester": neueSemester }),
             ...(changeModulverantwortlicher && { "modulverantwortlicher": neuerModulverantwortlicher }),
@@ -122,14 +122,14 @@ function UpdateModulePage() {
 
     return (
         <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
-            <div className="col-lg-12 col-sm-12 pt-5"><h2>Update Module Page</h2></div>
+            <div className="col-lg-12 col-sm-12 pt-5"><h2>Bereits bestehendes Modul ändern</h2></div>
             <div className="row align-items-center justify-content-center flex-fill flex-column">
                 <div className="row d-flex align-items-center justify-content-center m-2">
-                    <label className="col-2 m-1">Modulenummer </label>
-                    <input className="col-2 m-1" type="text" placeholder={"Modulnummer"} onChange={(e) => { setModuleNummer(e.target.value) }} />
+                    <label className="col-2 m-1">Modul-Nummer </label>
+                    <input className="col-2 m-1" type="text" placeholder={"Modul-Nummer"} onChange={(e) => { setModuleNummer(e.target.value) }} />
                 </div>
                 <div className="row d-flex align-items-center justify-content-center m-2">
-                    <label className="col-1 m-1 text-start">Streichung</label>
+                    <label className="col-1 m-1 text-start">Streichung des Moduls</label>
                     <input className="col-1 m-1" type="checkbox" onChange={() => {
                         setStreichung(!streichung);
                         setChangeNeuerTitel(false);
@@ -147,30 +147,30 @@ function UpdateModulePage() {
                 <div className="container align-items-center justify-content-center flex-fill flex-column">
                     <div className="container align-items-center justify-content-center flex-fill flex-column">
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2" >Neuer Titel</label>
+                            <label className="col-2 text-start" >Änderung Titel</label>
                             <input disabled={streichung} className="col-1" type="checkbox" onChange={() => { setChangeNeuerTitel(!changeNeuerTitel) }} />
-                            <div className="col-4 d-flex p-0">
-                                <input disabled={!changeNeuerTitel} className="flex-fill col-5 m-1" type="textbox" placeholder="Neuer Titel EN" onChange={(e) => { setNeuerTitelEN(e.target.value) }} />
-                                <input disabled={!changeNeuerTitel} className="flex-fill col-5 m-1" type="textbox" placeholder="Neuer Titel DE" onChange={(e) => { setNeuerTitelDE(e.target.value) }} />
+                            <div className="col-4 d-flex flex-column p-0">
+                                <input disabled={!changeNeuerTitel} className="flex-fill mb-1" type="textbox" placeholder="Geänderter Titel DE" onChange={(e) => { setNeuerTitelDE(e.target.value) }} />
+                                <input disabled={!changeNeuerTitel} className="flex-fill mt-1" type="textbox" placeholder="Geänderter Titel EN" onChange={(e) => { setNeuerTitelEN(e.target.value) }} />
                             </div>
                         </div>
 
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2">Neu Credits</label>
+                            <label className="col-2 text-start">Änderung Credits</label>
                             <input className="col-1" disabled={streichung} type="checkbox" onChange={() => { setChangeNeuCredits(!changeNeuCredits) }} />
-                            <input className="col-4" disabled={!changeNeuCredits} type="number" placeholder="Neu Credits" onChange={(e) => { setNeuCredits(e.target.value) }} />
+                            <input className="col-4" disabled={!changeNeuCredits} type="number" placeholder="Geänderte Anzahl Credits" onChange={(e) => { setNeuCredits(e.target.value) }} />
                         </div>
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2"> Neuer Semester Start</label>
+                            <label className="col-2 text-start"> Ab Semester</label>
                             <input className="col-1" disabled={streichung} type="checkbox" onChange={() => { setChangeNeuSemesterStart(!changeNeuSemesterStart) }} />
                             <input className="col-4" disabled={!changeNeuSemesterStart} type="textbox" placeholder="Neuer Semester Start" onChange={(e) => { setNeuerSemesterStart(e.target.value) }} />
                         </div>
 
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2">Neue SWS</label>
+                            <label className="col-2 text-start">Änderung SWS</label>
                             <input className="col-1" disabled={streichung} type="checkbox" onChange={() => { setChangeSWS(!changeSWS) }} />
                             <div className="col-4 p-0">
                                 <input className="col-3 m-1" disabled={!changeSWS} type="number" placeholder="SWS V" onChange={(e) => { setNeueSWS_V(e.target.value) }} />
@@ -180,28 +180,20 @@ function UpdateModulePage() {
                             </div>
                         </div>
 
-                        <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2 m-1">Neue Prüfungsart</label>
-                            <input className="col-1 m-1" disabled={streichung} type="checkbox" onChange={() => { setPrüfungsart(!prüfungsart) }} />
-                            <Select
-                                className="col-4 m-1"
-                                name="types"
-                                isDisabled={!prüfungsart}
-                                placeholder="Neue Types"
-                                options={typesOptions}
-                                onChange={(e) => { setNeueType(e.value); }}
-                            />
+                        <div className="row d-flex align-items-center justify-content-center m-2 ">
+                            <label className="col-2  text-start">Änderung Prüfungsart</label>
+                            <input className="col-5 " disabled={streichung} type="checkbox" onChange={() => { setPrüfungsart(!prüfungsart) }} />
                         </div>
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2 m-1"> Neue Studiengaenge</label>
-                            <input className="col-1 m-1" disabled={streichung} type="checkbox" onChange={() => { setChangeStudiengaenge(!changeStudiengaenge) }} />
+                            <label className="col-2 text-start"> Änderung Zuordnung Studiengang</label>
+                            <input className="col-1 " disabled={streichung} type="checkbox" onChange={() => { setChangeStudiengaenge(!changeStudiengaenge) }} />
                             <Select
-                                className="col-4 m-1"
+                                className="col-4 "
                                 name="studiengaenge"
                                 isMulti
                                 isDisabled={!changeStudiengaenge}
-                                placeholder="Neue Studiengaenge"
+                                placeholder="Auswahl Studiengänge"
                                 options={studiengaengeOptions}
                                 onChange={(e) => {
                                     const stud = [];
@@ -214,31 +206,33 @@ function UpdateModulePage() {
                         </div>
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2 m-1">Neue Semester</label>
-                            <input className="col-1 m-1" disabled={streichung} type="checkbox" onChange={() => { setChangeSemester(!changeSemester); }} />
+                            <label className="col-2  text-start">Änderung Semesterzuordnung</label>
+                            <input className="col-1 " disabled={streichung} type="checkbox" onChange={() => { setChangeSemester(!changeSemester); }} />
                             <Select
-                                className="col-4 m-1"
+                                className="col-4"
                                 name="semester"
                                 isDisabled={!changeSemester}
-                                placeholder="Neue Semester"
+                                placeholder="Auswahl Semesterzuordnung"
                                 options={semesterOptions}
                                 onChange={(e) => { setNeueSemester(e.value); }}
                             />
                         </div>
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2" >Neuer Modulverantwortlicher</label>
+                            <label className="col-2 text-start" >Änderung Modulverantwortlicher</label>
                             <input className="col-1" disabled={streichung} type="checkbox" onChange={() => { setChangeModulverantwortlicher(!changeModulverantwortlicher) }} />
                             <input className="col-4" disabled={!changeModulverantwortlicher} type="textbox" placeholder="Neuer Modulverantwortlicher" onChange={(e) => { setNeuerModulverantwortlicher(e.target.value) }} />
                         </div>
 
                         <div className="row d-flex align-items-center justify-content-center m-2">
-                            <label className="col-2" >Neuer Dozent:in</label>
+                            <label className="col-2 text-start" >Änderung Dozent:in</label>
                             <input className="col-1" disabled={streichung} type="checkbox" onChange={() => { setChangeDozent(!changeDozent) }} />
                             <input className="col-4" disabled={!changeDozent} type="textbox" placeholder="Neuer Dozent:in" onChange={(e) => { setNeuerDozent(e.target.value) }} />
                         </div>
                     </div>
-                    <button className="btn btn-success m-4 col-3" onClick={handleSubmit}>Submit Update Module</button>
+
+                    <button className="col-lg-2 col-sm-6 m-1 btn btn-danger" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="col-lg-2 col-sm-6 m-1 btn btn-success" onClick={handleSubmit}>Modul beantragen</button>
 
                 </div>
             </div>

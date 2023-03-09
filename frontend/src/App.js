@@ -10,6 +10,7 @@ import UpdateModulePage from './Pages/UpdateModulePage';
 import EditUpdatePage from './Pages/EditUpdatePage';
 import OverviewPage from './Pages/OverviewPage';
 import AdminRoute from './Components/AdminRoute';
+import SaveOverview from './Pages/SaveOverview';
 
 const App = () => {
     return (
@@ -44,6 +45,13 @@ const App = () => {
                 <ProtectedRoute>
                     <AdminRoute>
                         < OverviewPage />
+                    </AdminRoute>
+                </ProtectedRoute>
+            } />
+            <Route path="saveOverview" element={
+                <ProtectedRoute>
+                    <AdminRoute>
+                        <SaveOverview />
                     </AdminRoute>
                 </ProtectedRoute>
             } />

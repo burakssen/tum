@@ -35,6 +35,35 @@ exports.createModuleData = async (module) => {
     return await db_created_modules.insert(metaDoc);
 }
 
+exports.deleteModuleData = async (username, document_id, rev) => {
+    let response = "";
+    try {
+        response = await db_created_modules.destroy(document_id, rev);
+        let meta = await db_created_modules.get("meta");
+        const index = meta["module_user_mappings"][username].indexOf(document_id);
+        if (index > -1) {
+            meta["module_user_mappings"][username].splice(index, 1);
+        }
+        await db_created_modules.insert(meta);
+
+    } catch (err) {
+        console.log(err)
+    }
+    try {
+        response = await db_updated_modules.destroy(document_id, rev);
+        let meta = await db_updated_modules.get("meta");
+        const index = meta["module_user_mappings"][username].indexOf(document_id);
+        if (index > -1) {
+            meta["module_user_mappings"][username].splice(index, 1);
+        }
+        await db_updated_modules.insert(meta);
+
+    } catch (err) {
+        console.log(err)
+    }
+    return response;
+}
+
 exports.getAllModulesData = async () => {
     const createdModules = []
 
@@ -50,11 +79,13 @@ exports.getAllModulesData = async () => {
         const created_modules = await db_created_modules.fetch({ keys: createdModuleIds })
         created_modules["rows"].forEach((module) => {
             Object.keys(module.doc["versions"]).forEach((key) => {
-                createdModules.push({ document_id: module.doc["document_id"], ...module.doc["versions"][key] });
+                module.doc["versions"][key]["document_id"] = module["id"];
+                createdModules.push(module.doc["versions"][key]);
             })
         });
 
-        console.got()
+        console.log(created_modules);
+
     } catch (err) {
         console.log(err);
     }
@@ -153,8 +184,13 @@ exports.getAllStatusData = async () => {
 
 exports.getModuleVersionData = async (query) => {
     const document = await db_created_modules.get(query._id);
-    return document["versions"][query.version];
+    return document["versions"];
 }
+
+exports.getModuleUVersionData = async (query) => {
+    return await db_updated_modules.get(query._id);
+}
+
 
 exports.updateModuleData = async (module) => {
     const username = module.username;
@@ -208,5 +244,25 @@ exports.editUpdatedModuleData = async (module) => {
     module.semester ? doc["semester"] = module.semester : {};
     module.type ? doc["type"] = module.type : {};
     module.studiengaenge ? doc["studiengaenge"] = module.studiengaenge : {};
+    return await db_updated_modules.insert(doc);
+}
+
+exports.updateCStatusData = async (status) => {
+    const doc = await db_created_modules.get(status.document_id);
+    Object.keys(status).forEach((key) => {
+        if (key !== "document_id")
+            doc["versions"][Object.keys(doc["versions"])[0]]["status"][key] = status[key];
+    });
+    return await db_created_modules.insert(doc);
+}
+
+exports.updateUStatusData = async (status) => {
+    const doc = await db_updated_modules.get(status.document_id);
+    Object.keys(status).forEach((key) => {
+        if (key !== "document_id") {
+            doc["status"][key] = status[key];
+        }
+    });
+
     return await db_updated_modules.insert(doc);
 }

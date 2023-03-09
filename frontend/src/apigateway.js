@@ -16,6 +16,14 @@ export async function editModule(module) {
     }, { withCredentials: true });
 }
 
+export async function deleteDocument(document_id, rev) {
+    return await axios.post(gateway + "/api/modules/delete", {
+        "username": sessionStorage.getItem("username"),
+        "document_id": document_id,
+        "rev": rev
+    });
+}
+
 export async function getMeta() {
     return await axios.get(gateway + "/api/modules/getMeta", { withCredentials: true });
 }
@@ -37,14 +45,25 @@ export async function getAllModules() {
     return await axios.get(gateway + "/api/modules/getAllModules", { withCredentials: true });
 }
 
-export async function getModuleVersion(document_id, version) {
-    return await axios.get(gateway + "/api/modules/getModuleVersion", {
-        params: {
-            "_id": document_id,
-            "version": version
-        },
-        withCredentials: true
-    });
+export async function getModuleVersion(document_id, pageType) {
+    if (pageType === "create") {
+        return await axios.get(gateway + "/api/modules/getModuleVersion", {
+            params: {
+                "_id": document_id
+            },
+            withCredentials: true
+        });
+    }
+    else {
+
+        return await axios.get(gateway + "/api/modules/getModuleUVersion", {
+            params: {
+                "_id": document_id
+            },
+            withCredentials: true
+        });
+    }
+
 }
 
 export async function loginUser(username, password) {
@@ -91,4 +110,19 @@ export async function editUpdatedModule(module) {
 
 export async function getUserRole() {
     return await axios.get(gateway + "/api/auth/getUserRole", { withCredentials: true });
+}
+
+export async function updateStatus(document_id, statusValues, pageType) {
+    if (pageType === "create") {
+        return await axios.post(gateway + "/api/modules/updateCStatus", {
+            "document_id": document_id,
+            ...statusValues
+        }, { withCredentials: true });
+    }
+    else {
+        return await axios.post(gateway + "/api/modules/updateUStatus", {
+            "document_id": document_id,
+            ...statusValues
+        }, { withCredentials: true });
+    }
 }

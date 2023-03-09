@@ -119,7 +119,6 @@ function EditCreatePage() {
     }, [meta, currentModule]);
 
     const handleSubmitModule = async () => {
-        console.log(modulverantwortlicher);
         const module = {
             "document_id": document_id,
             "version": version,
@@ -151,7 +150,7 @@ function EditCreatePage() {
 
     return (
         <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
-            <div className="col-lg-12 col-sm-12 pt-5 m-0"><h2>Edit Created Module</h2></div>
+            <div className="col-lg-12 col-sm-12 pt-5 m-0"><h2>Neues Modul ändern</h2></div>
             <div className="row align-items-center justify-content-center flex-fill flex-column">
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
                     <label className="col-2 col-sm-3 text-start">Module Id : </label>
@@ -263,8 +262,8 @@ function EditCreatePage() {
                     <input className="m-1" type="checkbox" checked={modulbeschreibung_liegt_vor} onChange={() => { setModulbeschreibung_liegt_vor(!modulbeschreibung_liegt_vor) }} />
                 </div>
                 <div className="col-lg-7 col-sm-12 m-1 p-0">
-                    <button className="btn btn-danger col-lg-3 col-sm-6 m-1" onClick={() => { navigate("/home") }}>Cancel</button>
-                    <button className="btn btn-success col-lg-3 col-sm-6 m-1" onClick={handleSubmitModule}>Submit Module</button>
+                    <button className="btn btn-danger col-lg-3 col-sm-6 m-1" onClick={() => { navigate("/home") }}>Abbrechen</button>
+                    <button className="btn btn-success col-lg-3 col-sm-6 m-1" onClick={handleSubmitModule}>Änderung übertragen</button>
                 </div>
             </div>
         </div >

@@ -23,6 +23,7 @@
     "react-select": "^5.7.0",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.8",
+    "uuid": "^9.0.0",
     "wc-toast": "^1.2.9",
     "web-vitals": "^2.1.4"
   },

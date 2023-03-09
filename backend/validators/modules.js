@@ -18,6 +18,9 @@ exports.requestValidator = (method) => {
         case endpoints.get: {
             return [];
         }
+        case endpoints.delete: {
+            return [];
+        }
         case endpoints.getAllModules: {
             return [];
         }
@@ -30,6 +33,9 @@ exports.requestValidator = (method) => {
         case endpoints.getModuleVersion: {
             return [];
         }
+        case endpoints.getModuleUVersion: {
+            return [];
+        }
         case endpoints.getUpdatedModules: {
             return [];
         }
@@ -37,6 +43,12 @@ exports.requestValidator = (method) => {
             return [];
         }
         case endpoints.editUpdatedModule: {
+            return [];
+        }
+        case endpoints.updateCStatus: {
+            return [];
+        }
+        case endpoints.updateUStatus: {
             return [];
         }
         default:

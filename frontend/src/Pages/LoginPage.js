@@ -40,9 +40,9 @@ function LoginPage() {
 
     <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
       <div className="row align-items-center justify-content-center flex-fill flex-column">
-        <input className="col-lg-3 col-sm-6 m-2" type="text" placeholder="TumID" name="kennung" onChange={(e) => setUsername(e.target.value)} />
-        <input className="col-lg-3 col-sm-6 m-2" type="password" placeholder="Password" name="password" onChange={(e) => setPassword(e.target.value)} />
-        <button className="col-lg-3 col-sm-6 m-2 btn btn-primary" onClick={() => login(username, password)}>Login</button>
+        <input className="col-lg-3 col-sm-6 m-2" type="text" placeholder="Tum-Kennung" name="kennung" onChange={(e) => setUsername(e.target.value)} />
+        <input className="col-lg-3 col-sm-6 m-2" type="password" placeholder="Passwort" name="password" onChange={(e) => setPassword(e.target.value)} />
+        <button className="col-lg-3 col-sm-6 m-2 btn btn-primary" onClick={() => login(username, password)}>Anmeldung</button>
 
       </div>
 

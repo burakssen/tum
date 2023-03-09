@@ -5,6 +5,7 @@ const { endpoints } = require("../common/endpoints/modules");
 const {
     createModuleController,
     updateModuleController,
+    deleteModuleController,
     getModuleController,
     getAllModulesController,
     getMetaModuleController,
@@ -13,7 +14,10 @@ const {
     editModuleController,
     getUpdatedModulesController,
     getUpdatedModuleController,
-    editUpdatedModuleController
+    editUpdatedModuleController,
+    getModuleUVersionController,
+    updateCStatusController,
+    updateUStatusController
 } = require("../controllers/modules");
 const { authenticateToken } = require("../utils/authenticateToken");
 
@@ -54,6 +58,14 @@ router.get(
     getAllModulesController
 )
 
+router.post(
+    endpoints.delete,
+    validationHandler,
+    requestValidator(endpoints.delete),
+    authenticateToken,
+    deleteModuleController
+);
+
 router.get(
     endpoints.getMeta,
     validationHandler,
@@ -78,6 +90,13 @@ router.get(
     getModuleVersionController
 );
 
+router.get(
+    endpoints.getModuleUVersion,
+    validationHandler,
+    requestValidator(endpoints.getModuleUVersion),
+    authenticateToken,
+    getModuleUVersionController
+)
 router.post(
     endpoints.update,
     validationHandler,
@@ -108,6 +127,22 @@ router.post(
     requestValidator(endpoints.editUpdatedModule),
     authenticateToken,
     editUpdatedModuleController
+)
+
+router.post(
+    endpoints.updateCStatus,
+    validationHandler,
+    requestValidator(endpoints.updateCStatus),
+    authenticateToken,
+    updateCStatusController
+)
+
+router.post(
+    endpoints.updateUStatus,
+    validationHandler,
+    requestValidator(endpoints.updateUStatus),
+    authenticateToken,
+    updateUStatusController
 )
 
 module.exports = router;

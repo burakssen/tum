@@ -6,12 +6,16 @@ const {
     getModuleData,
     getMetaModuleData,
     getModuleVersionData,
+    getModuleUVersionData,
     editModuleData,
     updateModuleData,
     getUpdatedModulesData,
     getUpdatedModuleData,
     editUpdatedModuleData,
-    getAllStatusData
+    getAllStatusData,
+    updateCStatusData,
+    updateUStatusData,
+    deleteModuleData
 } = require("../data/modules");
 
 exports.createModuleService = asyncHandler(async (module) => {
@@ -42,6 +46,10 @@ exports.getModuleVersionService = asyncHandler(async (query) => {
     return await getModuleVersionData(query);
 });
 
+exports.getModuleUVersionService = asyncHandler(async (query) => {
+    return await getModuleUVersionData(query);
+})
+
 exports.updateModuleService = asyncHandler(async (module) => {
     return await updateModuleData(module)
 });
@@ -56,4 +64,16 @@ exports.getUpdatedModuleService = asyncHandler(async (document_id) => {
 
 exports.editUpdatedModuleService = asyncHandler(async (module) => {
     return await editUpdatedModuleData(module);
+});
+
+exports.updateCStatusService = asyncHandler(async (status) => {
+    return await updateCStatusData(status);
+});
+
+exports.updateUStatusService = asyncHandler(async (status) => {
+    return await updateUStatusData(status);
+});
+
+exports.deleteModuleService = asyncHandler(async (username, document_id, rev) => {
+    return await deleteModuleData(username, document_id, rev);
 });
