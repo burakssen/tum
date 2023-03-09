@@ -89,7 +89,7 @@ function SaveOverview() {
             cModule["semester_start"] ? setSemester_start(cModule["semester_start"]) : setSemester_start("");
             cModule["titel_de"] ? setTitel_de(cModule["titel_de"]) : setTitel_de("");
             cModule["titel_en"] ? setTitel_en(cModule["titel_en"]) : setTitel_en("");
-            cModule["dozenten"] ? setDozenten(cModule["dozenten"]) : setDozenten("");
+            cModule["dozent"] ? setDozenten(cModule["dozent"]) : setDozenten("");
             cModule["sws_v"] ? setSws_v(cModule["sws_v"]) : setSws_v("");
             cModule["sws_u"] ? setSws_u(cModule["sws_u"]) : setSws_u("");
             cModule["sws_p"] ? setSws_p(cModule["sws_p"]) : setSws_p("");
