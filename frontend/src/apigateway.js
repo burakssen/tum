@@ -1,7 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true
 
-const gateway = "https://localhost:8080";
+const gateway = "http://localhost:4000";
 
 export async function createModule(module) {
     return await axios.post(gateway + "/api/modules/create", {

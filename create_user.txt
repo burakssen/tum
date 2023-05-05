@@ -1,0 +1,4 @@
+curl -H 'Content-Type: application/json' -X POST http://localhost:4000/api/auth/create -d '{"username":"burakssen","password":"kalemlik"}'
+{"ok":true,"id":"8e57d8ef615cb42c73d313ee21000046","rev":"1-9d32f4532f3e93411ad0a79ba42d7169"}
+
+change username and password and run on backend container !!!! This is until shibboleth

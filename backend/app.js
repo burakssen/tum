@@ -29,7 +29,7 @@ app.use(hpp());
 
 const corsOptions = {
     credentials: true,
-    origin: ['https://192.168.178.55:3000', 'https://localhost:3000', 'https://127.0.0.1:3000'],
+    origin: ['http://172.18.0.1', 'http://localhost'],
     methods: ['GET', 'PUT', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token', 'set-cookie'],
     exposedHeaders: ['set-cookie']
