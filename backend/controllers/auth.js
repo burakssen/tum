@@ -51,7 +51,6 @@ exports.createUserController = asyncHandler(async (req, res) => {
     const user = { username: req.body.username };
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
     await rdsClient.set(req.body.username, refreshToken);
-    await rdsClient.disconnect();
     const result = await createUserService(req.body);
     res.status(SUCCESS).json(result);
 });
