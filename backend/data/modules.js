@@ -246,7 +246,7 @@ exports.editUpdatedModuleData = async (module) => {
     module.semester ? doc["semester"] = module.semester : {};
     module.type ? doc["type"] = module.type : {};
     module.studiengaenge ? doc["studiengaenge"] = module.studiengaenge : {};
-    console.log("Hellllloo");
+    
     return await db_updated_modules.insert(doc);
 }
 
@@ -260,9 +260,7 @@ exports.updateCStatusData = async (status) => {
 
     doc["versions"][Object.keys(doc["versions"])[0]]["module_id"] = status.module_id;
     doc["versions"][status.version] = doc["versions"][Object.keys(doc["versions"])[0]];
-    console.log(doc["versions"][status.version]);
-    delete doc["versions"]["000000"];
-
+  
     return await db_created_modules.insert(doc);
 }
 
