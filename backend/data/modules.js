@@ -36,32 +36,47 @@ exports.createModuleData = async (module) => {
     return await db_created_modules.insert(metaDoc);
 }
 
-exports.deleteModuleData = async (username, document_id, rev) => {
+exports.deleteModuleData = async (username, document_id, document_type, rev) => {
+
     let response = "";
-    try {
-        response = await db_created_modules.destroy(document_id, rev);
-        let meta = await db_created_modules.get("meta");
-        const index = meta["module_user_mappings"][username].indexOf(document_id);
-        if (index > -1) {
-            meta["module_user_mappings"][username].splice(index, 1);
-        }
-        await db_created_modules.insert(meta);
 
-    } catch (err) {
-        console.log(err)
-    }
-    try {
-        response = await db_updated_modules.destroy(document_id, rev);
-        let meta = await db_updated_modules.get("meta");
-        const index = meta["module_user_mappings"][username].indexOf(document_id);
-        if (index > -1) {
-            meta["module_user_mappings"][username].splice(index, 1);
-        }
-        await db_updated_modules.insert(meta);
+    if(document_type === "created_modules") {
+        try {
+            response = await db_created_modules.destroy(document_id, rev);
+    
+            let meta = await db_created_modules.get("meta");
+            
+            const index = meta["module_user_mappings"][username].indexOf(document_id);
+            
 
-    } catch (err) {
-        console.log(err)
+            if (index > -1) {
+                meta["module_user_mappings"][username].splice(index, 1);
+            }
+            await db_created_modules.insert(meta);
+    
+        } catch (err) {
+            console.log(err)
+        }
     }
+    
+    if(document_type === "updated_modules"){
+        try {
+            response = await db_updated_modules.destroy(document_id, rev);
+    
+            let meta = await db_updated_modules.get("meta");
+    
+            const index = meta["module_user_mappings"][username].indexOf(document_id);
+    
+            if (index > -1) {
+                meta["module_user_mappings"][username].splice(index, 1);
+            }
+            await db_updated_modules.insert(meta);
+    
+        } catch (err) {
+            console.log(err)
+        }
+    }   
+
     return response;
 }
 
@@ -84,8 +99,6 @@ exports.getAllModulesData = async () => {
                 createdModules.push(module.doc["versions"][key]);
             })
         });
-
-        console.log(created_modules);
 
     } catch (err) {
         console.log(err);
@@ -211,8 +224,9 @@ exports.getUpdatedModulesData = async (username) => {
 
         const docNames = metaDoc["module_user_mappings"][username]
 
-        const docs = await db_updated_modules.fetch({ keys: docNames });
+        if(docNames === undefined) return [];
 
+        const docs = await db_updated_modules.fetch({ keys: docNames });
 
         docs["rows"].forEach(document => {
             updateDocs.push(document.doc);

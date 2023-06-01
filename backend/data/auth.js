@@ -2,7 +2,6 @@ const { nano } = require("../database/couchdb");
 const { cryptPassword } = require("../utils/encryption");
 const db = nano.use("module_app_users");
 
-
 exports.getWithUsernameData = async (_username) => {
     const query = {
         selector: {
@@ -15,10 +14,12 @@ exports.getWithUsernameData = async (_username) => {
 }
 
 exports.createUserData = async (_body) => {
-    return await db.insert({
+    result = await db.insert({
         username: _body.username,
         password: await cryptPassword(_body.password),
         role: _body.role ? _body.role : "normal"
     });
+
+    return result;
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllModules, getAllStatus } from "../apigateway";
+import { getAllModules } from "../apigateway";
 import { useNavigate } from "react-router-dom";
 
 

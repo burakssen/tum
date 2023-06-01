@@ -74,6 +74,6 @@ exports.updateUStatusService = asyncHandler(async (status) => {
     return await updateUStatusData(status);
 });
 
-exports.deleteModuleService = asyncHandler(async (username, document_id, rev) => {
-    return await deleteModuleData(username, document_id, rev);
+exports.deleteModuleService = asyncHandler(async (req) => {
+    return await deleteModuleData(req.username, req.document_id, req.document_type, req.rev);
 });

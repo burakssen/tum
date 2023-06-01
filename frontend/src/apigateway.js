@@ -16,10 +16,11 @@ export async function editModule(module) {
     }, { withCredentials: true });
 }
 
-export async function deleteDocument(document_id, rev) {
+export async function deleteDocument(document_id, document_type, rev) {
     return await axios.post(gateway + "/api/modules/delete", {
         "username": sessionStorage.getItem("username"),
         "document_id": document_id,
+        "document_type": document_type,
         "rev": rev
     });
 }

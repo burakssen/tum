@@ -90,6 +90,6 @@ exports.updateUStatusController = asyncHandler(async (req, res) => {
 })
 
 exports.deleteModuleController = asyncHandler(async (req, res) => {
-    const result = await deleteModuleService(req.body.username, req.body.document_id, req.body.rev);
+    const result = await deleteModuleService(req.body);
     res.status(SUCCESS).json(result);
 });

@@ -13,7 +13,6 @@ const { cookie } = require("express-validator");
 const {rdsClient} = require("../utils/rds");
 
 exports.loginAuthController = asyncHandler(async (req, res) => {
-    console.log("I am here");
     let result = await getWithUsernameService(req.body.username);
     if (result === undefined) {
         res.status(NOT_AUTHORIZED).json("User is not available");

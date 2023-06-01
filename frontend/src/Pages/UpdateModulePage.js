@@ -31,7 +31,6 @@ function UpdateModulePage() {
     const [neueSWS_P, setNeueSWS_P] = useState();
 
     const [prüfungsart, setPrüfungsart] = useState(false);
-    const [neueType, setNeueType] = useState();
 
     const [changeStudiengaenge, setChangeStudiengaenge] = useState(false);
     const [neueStudiengaenge, setNeueStudiengaenge] = useState([]);
@@ -46,7 +45,6 @@ function UpdateModulePage() {
     const [changeDozent, setChangeDozent] = useState(false);
     const [neuerDozent, setNeuerDozent] = useState();
 
-    const [typesOptions, setTypesOptions] = useState();
     const [semesterOptions, setSemesterOptions] = useState();
     const [studiengaengeOptions, setStudiengaengeOptions] = useState();
 
@@ -72,7 +70,6 @@ function UpdateModulePage() {
                 t_semester.push({ value: sem, label: sem });
             });
 
-            setTypesOptions(t_types);
             setStudiengaengeOptions(t_studiengaenge);
             setSemesterOptions(t_semester);
         }
@@ -112,7 +109,7 @@ function UpdateModulePage() {
         }
 
         try {
-            if (antragsteller && antragsteller !== "" && module_nummer && module_nummer != "") {
+            if (antragsteller && antragsteller !== "" && module_nummer && module_nummer !== "") {
                 const response = await updateModule(module);
                 if (response.status === axios.HttpStatusCode.Ok) {
                     navigate("/home");

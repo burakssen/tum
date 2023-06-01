@@ -9,8 +9,6 @@ function CreateModulePage() {
 
     const [meta, setMeta] = useState();
 
-    const [version, setVersion] = useState();
-    const [module_id, setModule_id] = useState();
     const [antragsteller, setAntragsteller] = useState();
     const [modulverantwortlicher, setModulverantwortlicher] = useState();
     const [semester_start, setSemester_start] = useState();

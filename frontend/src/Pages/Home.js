@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { logoutUser, updateModule } from "../apigateway";
+import { logoutUser } from "../apigateway";
 import { useNavigate } from "react-router-dom";
 import { getModules, getUpdatedModules, getUserRole, deleteDocument } from "../apigateway";
 import axios from "axios";
@@ -28,11 +28,9 @@ function Home() {
         const fetchModules = async () => {
             try {
                 const modules = await getModules();
-                console.log(modules);
                 setModuleList(modules.data);
                 const updatedModules = await getUpdatedModules();
                 setUpdatedModuleList(updatedModules.data);
-                console.log(updatedModules);
             }
             catch (err) {
                 console.log(err);
@@ -64,11 +62,11 @@ function Home() {
         }
     }, [navigate, isLoggedOut])
 
-    const delDocument = async (document_id, rev) => {
+    const delDocument = async (document_id, document_type, rev) => {
         try {
-            const response = await deleteDocument(document_id, rev);
+            const response = await deleteDocument(document_id, document_type, rev);
             if (response.status === axios.HttpStatusCode.Ok) {
-                window.location.reload(false);
+                window.location.reload();
             }
         } catch (err) {
             console.log(err);
@@ -109,7 +107,7 @@ function Home() {
                                             <th className="text-start" style={{ fontWeight: "normal" }}>{module["versions"][version]["module_id"]}</th>
                                             <th className="text-start" style={{ fontWeight: "normal" }}>{module["versions"][version]["titel_de"]}</th>
                                             <th><button className="btn btn-secondary m-0" style={{ width: "100%" }} onClick={() => { navigate("/editCreate", { state: { document_id: module["_id"], version: version } }) }}>Ändern</button></th>
-                                            <th><button className="btn btn-secondary m-0" style={{ width: "100%" }} onClick={() => { delDocument(module["_id"], module["_rev"]) }}>Löschen</button></th>
+                                            <th><button className="btn btn-secondary m-0" style={{ width: "100%" }} onClick={() => { delDocument(module["_id"], "created_modules" , module["_rev"]) }}>Löschen</button></th>
                                         </tr>);
                                     })
                                 })
@@ -143,7 +141,7 @@ function Home() {
                                             onClick={() => { navigate("/editUpdate", { state: { document_id: module["_id"] } }) }}
                                         >Ändern</button></th>
                                         <th><button className="btn btn-secondary" style={{ width: "100%" }}
-                                            onClick={() => { delDocument(module["_id"], module["_rev"]) }}
+                                            onClick={() => { delDocument(module["_id"], "updated_modules", module["_rev"]) }}
                                         >Löschen</button></th>
                                     </tr>);
                                 })

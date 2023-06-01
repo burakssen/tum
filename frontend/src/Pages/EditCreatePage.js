@@ -12,7 +12,6 @@ function EditCreatePage() {
     const [currentModule, setCurrentModule] = useState();
     const [meta, setMeta] = useState();
 
-    const [module_id, setModule_id] = useState('');
     const [antragsteller, setAntragsteller] = useState('');
     const [modulverantwortlicher, setModulverantwortlicher] = useState('');
     const [semester_start, setSemester_start] = useState('');
@@ -92,8 +91,6 @@ function EditCreatePage() {
             setStudiengaengeOptions(t_studiengaenge);
             setSemesterOptions(t_semester);
         }
-
-        console.log(currentModule);
 
         if (currentModule) {
             //currentModule["module_id"] ? setModule_id(currentModule["module_id"]) : setModule_id("");
