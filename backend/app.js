@@ -29,7 +29,7 @@ app.use(hpp());
 
 const corsOptions = {
     credentials: true,
-    origin: ['http://172.18.0.1', 'http://localhost'],
+    origin: ['https://modulmanager.ldv.ei.tum.de'],
     methods: ['GET', 'PUT', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token', 'set-cookie'],
     exposedHeaders: ['set-cookie']
