@@ -12,6 +12,11 @@ import OverviewPage from './Pages/OverviewPage';
 import AdminRoute from './Components/AdminRoute';
 import SaveOverview from './Pages/SaveOverview';
 
+import Impressum from './Pages/Impressum';
+import Datenschutz from './Pages/Datenschutz';
+import Privacy from './Pages/Privacy';
+import Support from './Pages/Support';
+
 const App = () => {
     return (
         <Routes>
@@ -55,11 +60,24 @@ const App = () => {
                     </AdminRoute>
                 </ProtectedRoute>
             } />
+            <Route path="impressum" element={
+                <Impressum />
+            } />
+            <Route path="datenschutz" element={
+                <Datenschutz />
+            } />
+            <Route path="privacy" element={
+                <Privacy />
+            } />
+            <Route path="support" element={
+                <Support />
+            } />
             <Route path='*' element={
                 <ProtectedRoute>
                     <Navigate to='home' />
                 </ProtectedRoute>
             } />
+
         </Routes>
     );
 };
