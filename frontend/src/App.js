@@ -16,6 +16,7 @@ import Impressum from './Pages/Impressum';
 import Datenschutz from './Pages/Datenschutz';
 import Privacy from './Pages/Privacy';
 import Support from './Pages/Support';
+import Logo from './Pages/Logo';
 
 const App = () => {
     return (
@@ -72,6 +73,9 @@ const App = () => {
             <Route path="support" element={
                 <Support />
             } />
+            <Route path="logo" element={
+                <Logo/>
+            }/>
             <Route path='*' element={
                 <ProtectedRoute>
                     <Navigate to='home' />
