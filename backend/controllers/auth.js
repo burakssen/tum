@@ -1,16 +1,19 @@
 const asyncHandler = require("../utils/async");
 const { comparePassword } = require("../utils/encryption");
 
-
+const fs = require("fs");
 const {
     getWithUsernameService,
     createUserService
 } = require("../services/auth");
 
+const { strategy } = require("./saml");
+
 const { NOT_AUTHORIZED, SUCCESS } = require("../common/statusCodes");
 const jwt = require("jsonwebtoken");
 const { cookie } = require("express-validator");
-const {rdsClient} = require("../utils/rds");
+const { rdsClient } = require("../utils/rds");
+
 
 exports.loginAuthController = asyncHandler(async (req, res) => {
     let result = await getWithUsernameService(req.body.username);
@@ -68,3 +71,11 @@ exports.getUserRoleController = asyncHandler(async (req, res) => {
         res.status(SUCCESS).json(false);
     }
 });
+
+exports.getMetadataController = asyncHandler(async (req, res) => {
+    const publicCert = fs.readFileSync(process.env.SAMLCERT, 'utf-8');
+    let metadata = strategy.generateServiceProviderMetadata(publicCert, publicCert);
+    res.contentType("application/xml");
+    res.send(metadata);
+});
+

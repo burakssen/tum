@@ -3,6 +3,14 @@ axios.defaults.withCredentials = true
 
 const gateway = "https://modulmanager.ldv.ei.tum.de";
 
+export async function getCsrf() {
+    return await axios.get(gateway + "/api/auth/csrf");
+}
+
+export function setCsrf(csrf) {
+    axios.defaults.headers.common['x-csrf-token'] = csrf;
+}
+
 export async function createModule(module) {
     return await axios.post(gateway + "/api/modules/create", {
         "username": sessionStorage.getItem("username"),
@@ -128,4 +136,10 @@ export async function updateStatus(document_id, moduleChange, statusValues, page
             ...statusValues
         }, { withCredentials: true });
     }
+}
+
+export async function loginButtonCall() {
+    return await axios.get("https://modulmanager.ldv.ei.tum.de/api/auth/Shibboleth.sso/access", {
+        withCredentials: true
+    });
 }

@@ -4,10 +4,17 @@
 /backend/key.pem
 /backend/privkey.pem
 /backend/.env
+/backend/certificates_burak_no_password
+/backend/idp-cert.pem
+/backend/sp-cert.pem
+/backend/sp-key.pem
+/backend/*.log
+/backend/saml_req.xml
 
 /frontend/node_modules
 /frontend/cert.pem
 /frontend/cert.csr
 /frontend/key.pem
 /frontend/privkey.pem
+
 

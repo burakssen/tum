@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, redirect } from 'react-router-dom';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -74,8 +74,8 @@ const App = () => {
                 <Support />
             } />
             <Route path="logo" element={
-                <Logo/>
-            }/>
+                <Logo />
+            } />
             <Route path='*' element={
                 <ProtectedRoute>
                     <Navigate to='home' />

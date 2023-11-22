@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { logoutUser } from "../apigateway";
 import { useNavigate } from "react-router-dom";
 import { getModules, getUpdatedModules, getUserRole, deleteDocument } from "../apigateway";
+import { useCookies } from "react-cookie";
 import axios from "axios";
 
 function Home() {
@@ -25,6 +26,7 @@ function Home() {
     }
 
     useEffect(() => {
+
         const fetchModules = async () => {
             try {
                 const modules = await getModules();

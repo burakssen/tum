@@ -26,7 +26,13 @@ exports.requestValidator = (method) => {
         case endpoints.getUserRole: {
             return [];
         }
-
+        case endpoints.metadata: {
+            return [];
+        }
+        
+        case endpoints.authenticate: {
+            return [];
+        }
 
         default:
             break;
