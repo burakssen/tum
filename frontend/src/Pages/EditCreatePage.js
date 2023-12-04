@@ -148,7 +148,7 @@ function EditCreatePage() {
     }
 
     return (
-        <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
+        <div className="container-fluid text-center d-flex flex-column">
             <div className="col-lg-12 col-sm-12 pt-5 m-0"><h2>Neues Modul ändern</h2></div>
             <div className="row align-items-center justify-content-center flex-fill flex-column">
 

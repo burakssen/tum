@@ -9,8 +9,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
   <BrowserRouter>
-    <App />
-    <Footer/>
+    <div className="d-flex flex-column min-vh-100 justify-content-between">
+      <App className="container" />
+      <Footer className="footer" />
+    </div>
+
   </BrowserRouter>
   //</React.StrictMode>
 );

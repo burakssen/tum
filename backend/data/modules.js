@@ -40,48 +40,49 @@ exports.deleteModuleData = async (username, document_id, document_type, rev) => 
 
     let response = "";
 
-    if(document_type === "created_modules") {
+    if (document_type === "created_modules") {
         try {
             response = await db_created_modules.destroy(document_id, rev);
-    
+
             let meta = await db_created_modules.get("meta");
-            
+
             const index = meta["module_user_mappings"][username].indexOf(document_id);
-            
+
 
             if (index > -1) {
                 meta["module_user_mappings"][username].splice(index, 1);
             }
             await db_created_modules.insert(meta);
-    
+
         } catch (err) {
             console.log(err)
         }
     }
-    
-    if(document_type === "updated_modules"){
+
+    if (document_type === "updated_modules") {
         try {
             response = await db_updated_modules.destroy(document_id, rev);
-    
+
             let meta = await db_updated_modules.get("meta");
-    
+
             const index = meta["module_user_mappings"][username].indexOf(document_id);
-    
+
             if (index > -1) {
                 meta["module_user_mappings"][username].splice(index, 1);
             }
             await db_updated_modules.insert(meta);
-    
+
         } catch (err) {
             console.log(err)
         }
-    }   
+    }
 
     return response;
 }
 
 exports.getAllModulesData = async () => {
     const createdModules = []
+    const updatedModules = []
 
     try {
         const created_module_ids = await db_created_modules.list();
@@ -91,20 +92,19 @@ exports.getAllModulesData = async () => {
                 createdModuleIds.push(doc.id);
         });
 
-
-        const created_modules = await db_created_modules.fetch({ keys: createdModuleIds })
-        created_modules["rows"].forEach((module) => {
-            Object.keys(module.doc["versions"]).forEach((key) => {
-                module.doc["versions"][key]["document_id"] = module["id"];
-                createdModules.push(module.doc["versions"][key]);
-            })
-        });
-
+        if (createdModuleIds.length !== 0 && createdModuleIds !== undefined) {
+            const created_modules = await db_created_modules.fetch({ keys: createdModuleIds })
+            created_modules["rows"].forEach((module) => {
+                Object.keys(module.doc["versions"]).forEach((key) => {
+                    module.doc["versions"][key]["document_id"] = module["id"];
+                    createdModules.push(module.doc["versions"][key]);
+                })
+            });
+        }
     } catch (err) {
         console.log(err);
     }
 
-    const updatedModules = []
 
     try {
         const updated_module_ids = await db_updated_modules.list();
@@ -114,11 +114,12 @@ exports.getAllModulesData = async () => {
                 updatedModuleIds.push(doc.id);
         });
 
-
-        const updated_modules = await db_updated_modules.fetch({ keys: updatedModuleIds })
-        updated_modules["rows"].forEach((module) => {
-            updatedModules.push(module.doc);
-        });
+        if (updatedModuleIds.length !== 0 && updatedModuleIds !== undefined) {
+            const updated_modules = await db_updated_modules.fetch({ keys: updatedModuleIds })
+            updated_modules["rows"].forEach((module) => {
+                updatedModules.push(module.doc);
+            });
+        }
     } catch (err) {
         console.log(err);
     }
@@ -223,8 +224,8 @@ exports.getUpdatedModulesData = async (username) => {
         const metaDoc = await db_updated_modules.get("meta");
 
         const docNames = metaDoc["module_user_mappings"][username]
-
-        if(docNames === undefined) return [];
+        if (docNames === undefined || docNames.length === 0)
+            return [];
 
         const docs = await db_updated_modules.fetch({ keys: docNames });
 
@@ -260,7 +261,7 @@ exports.editUpdatedModuleData = async (module) => {
     module.semester ? doc["semester"] = module.semester : {};
     module.type ? doc["type"] = module.type : {};
     module.studiengaenge ? doc["studiengaenge"] = module.studiengaenge : {};
-    
+
     return await db_updated_modules.insert(doc);
 }
 
@@ -274,7 +275,7 @@ exports.updateCStatusData = async (status) => {
 
     doc["versions"][Object.keys(doc["versions"])[0]]["module_id"] = status.module_id;
     doc["versions"][status.version] = doc["versions"][Object.keys(doc["versions"])[0]];
-  
+
     return await db_created_modules.insert(doc);
 }
 

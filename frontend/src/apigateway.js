@@ -13,7 +13,7 @@ export function setCsrf(csrf) {
 
 export async function createModule(module) {
     return await axios.post(gateway + "/api/modules/create", {
-        "username": sessionStorage.getItem("username"),
+        "username": JSON.parse(sessionStorage.getItem("user")).tumKennung,
         ...module
     }, { withCredentials: true });
 }
@@ -26,7 +26,7 @@ export async function editModule(module) {
 
 export async function deleteDocument(document_id, document_type, rev) {
     return await axios.post(gateway + "/api/modules/delete", {
-        "username": sessionStorage.getItem("username"),
+        "username": JSON.parse(sessionStorage.getItem("user")).tumKennung,
         "document_id": document_id,
         "document_type": document_type,
         "rev": rev
@@ -44,7 +44,7 @@ export async function getAllStatus() {
 export async function getModules() {
     return await axios.get(gateway + "/api/modules/get", {
         params: {
-            "username": sessionStorage.getItem("username")
+            "username": JSON.parse(sessionStorage.getItem("user")).tumKennung
         },
         withCredentials: true
     });
@@ -88,7 +88,7 @@ export async function logoutUser() {
 
 export async function updateModule(module) {
     return await axios.post(gateway + "/api/modules/update", {
-        "username": sessionStorage.getItem("username"),
+        "username": JSON.parse(sessionStorage.getItem("user")).tumKennung,
         ...module
     }, { withCredentials: true });
 }
@@ -96,7 +96,7 @@ export async function updateModule(module) {
 export async function getUpdatedModules() {
     return await axios.get(gateway + "/api/modules/getUpdatedModules", {
         params: {
-            "username": sessionStorage.getItem("username")
+            "username": JSON.parse(sessionStorage.getItem("user")).tumKennung
         },
         withCredentials: true
     })

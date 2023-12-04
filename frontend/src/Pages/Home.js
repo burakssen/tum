@@ -9,16 +9,20 @@ function Home() {
     const [isLoggedOut, setIsLoggedOut] = useState(false);
     const [moduleList, setModuleList] = useState([]);
     const [updatedModuleList, setUpdatedModuleList] = useState([]);
-    const [role, setRole] = useState();
+    const [roles, setRoles] = useState([]);
+    const [tumKennung, setTumKennung] = useState("");
+    const [searchNeuanlagen, setSearchNeuanlagen] = useState("nummer");
 
     const navigate = useNavigate();
     const logout = async () => {
         const response = await logoutUser();
         if (response.status === 200) {
             setIsLoggedOut(true);
-            sessionStorage.removeItem("username");
+            sessionStorage.removeItem("user");
             sessionStorage.setItem("isLoggedIn", "false");
+            navigate("/");
         }
+
     }
 
     const getModuleVersions = (module) => {
@@ -26,6 +30,10 @@ function Home() {
     }
 
     useEffect(() => {
+
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        setTumKennung(user.tumKennung);
+
 
         const fetchModules = async () => {
             try {
@@ -39,28 +47,12 @@ function Home() {
             }
         }
 
-        const getRole = async () => {
-            try {
-                const response = await getUserRole();
-                if (response.status === axios.HttpStatusCode.Ok) {
-                    setRole(response.data);
-                    sessionStorage.setItem("administration", response.data);
-                }
-                else {
-                    setRole(null);
-                }
-
-            } catch (err) {
-                console.log(err);
-            }
-
-        }
+        setRoles(user.roles);
 
         if (isLoggedOut)
             navigate("/");
         else {
             fetchModules();
-            getRole();
         }
     }, [navigate, isLoggedOut])
 
@@ -78,16 +70,16 @@ function Home() {
 
     return (
         <div className="container">
-            <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
+            <div className="container-fluid text-center d-flex flex-column" >
                 <div className="align-self-end d-flex align-items-center pb-5">
-                    <h5 className="m-2">{sessionStorage.getItem("username")}</h5>
+                    <h5 className="m-2">{tumKennung}</h5>
                     <button className="btn btn-secondary align-self-end m-2" onClick={() => { logout() }}>Abmelden</button>
 
                 </div>
                 <div className="row-12 justify-content-start align-items-center d-flex flex-column align-self-start pb-5">
                     <button className="btn btn-secondary col-10 text-start m-1" onClick={() => navigate("/createModule")}>Neues Modul beantragen</button>
                     <button className="btn btn-secondary col-10 text-start m-1" onClick={() => navigate("/updateModule")}>Änderung bei bereits bestehendem Modul beantragen</button>
-                    {role && <button className="btn btn-secondary text-start col-10 m-1" onClick={() => navigate("/overview")}>Modulübersicht</button>}
+                    {roles.includes("student") && <button className="btn btn-secondary text-start col-10 m-1" onClick={() => navigate("/overview")}>Modulübersicht</button>}
                 </div>
                 <div className="row align-items-center justify-content-center flex-column pt-5 ">
                     <h3 className="text-start">Modul-Neuanlagen ({moduleList.length})</h3>

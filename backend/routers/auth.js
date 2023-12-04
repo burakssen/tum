@@ -49,11 +49,12 @@ router.post(
     endpoints.logout,
     (req, res) => {
         try {
-            req.logout((err) => {
+            req.logOut((err) => {
                 if (err) {
                     console.log(err);
                 }
             });
+
             res.cookie("accessToken", null, { httpOnly: true, secure: true, sameSite: 'None' });
             res.cookie("user", null, { httpOnly: true, secure: true, sameSite: 'None' });
             res.sendStatus(SUCCESS);
@@ -115,7 +116,8 @@ router.post(
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1w' });
         res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: 'None' });
         res.cookie("user", req.user, { httpOnly: true, secure: true, sameSite: 'None' });
-        res.redirect("/home");
+        res.cookie("roles", req.user.roles, { httpOnly: true, secure: true, sameSite: 'None' })
+        res.redirect("/");
     }
 )
 

@@ -48,8 +48,13 @@ function SaveOverview() {
     const [check7, setCheck7] = useState(false);
     const [check8, setCheck8] = useState(false);
 
+    const [user, setUser] = useState();
+
 
     useEffect(() => {
+
+        setUser(JSON.parse(sessionStorage.getItem("user")));
+
         const fetchMeta = async () => {
             try {
                 const metaData = await getMeta();
@@ -281,14 +286,14 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Tool/Datenbank erfasst:</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
-                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check1.value }) }} /></td>
+                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: user.tumKennung, value: !check1.value }) }} /></td>
                                         <td>{check1.value && check1.datum}</td>
                                         <td>{check1.value && check1.person}</td>
                                     </tr>
                                     <tr>
                                         <td>In TUMonline angelegt</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check2.value })
+                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: user.tumKennung, value: !check2.value })
                                         }} /></td>
                                         <td>{check2.value && check2.datum}</td>
                                         <td>{check2.value && check2.person}</td>
@@ -296,7 +301,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Studienkommission verabschiedet</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check3.value })
+                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check3.value })
                                         }} /></td>
                                         <td>{check3.value && check3.datum}</td>
                                         <td>{check3.value && check3.person}</td>
@@ -304,7 +309,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Teaching council verabschiedet</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check4.value })
+                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check4.value })
                                         }} /></td>
                                         <td>{check4.value && check4.datum}</td>
                                         <td>{check4.value && check4.person}</td>
@@ -312,7 +317,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In TUMonline fertiggestellt</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check5.value })
+                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check5.value })
                                         }} /></td>
                                         <td>{check5.value && check5.datum}</td>
                                         <td>{check5.value && check5.person}</td>
@@ -320,7 +325,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>Auf Modulliste geändert</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check6.value })
+                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check6.value })
                                         }} /></td>
                                         <td>{check6.value && check6.datum}</td>
                                         <td>{check6.value && check6.person}</td>
@@ -328,7 +333,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>Im Web geändert</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check7.value })
+                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check7.value })
                                         }} /></td>
                                         <td>{check7.value && check7.datum}</td>
                                         <td>{check7.value && check7.person}</td>
@@ -336,7 +341,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Studienrichtungsempfehlungen</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check8.value })
+                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check8.value })
                                         }} /></td>
                                         <td>{check8.value && check8.datum}</td>
                                         <td>{check8.value && check8.person}</td>
@@ -451,14 +456,14 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Tool/Datenbank erfasst:</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
-                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check1.value }) }} /></td>
+                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: user.tumKennung, value: !check1.value }) }} /></td>
                                         <td>{check1.value && check1.datum}</td>
                                         <td>{check1.value && check1.person}</td>
                                     </tr>
                                     <tr>
                                         <td>In TUMonline angelegt</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check2.value })
+                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: user.tumKennung, value: !check2.value })
                                         }} /></td>
                                         <td>{check2.value && check2.datum}</td>
                                         <td>{check2.value && check2.person}</td>
@@ -466,7 +471,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Studienkommission verabschiedet</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check3.value })
+                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check3.value })
                                         }} /></td>
                                         <td>{check3.value && check3.datum}</td>
                                         <td>{check3.value && check3.person}</td>
@@ -474,7 +479,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Teaching council verabschiedet</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check4.value })
+                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check4.value })
                                         }} /></td>
                                         <td>{check4.value && check4.datum}</td>
                                         <td>{check4.value && check4.person}</td>
@@ -482,7 +487,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In TUMonline fertiggestellt</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check5.value })
+                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check5.value })
                                         }} /></td>
                                         <td>{check5.value && check5.datum}</td>
                                         <td>{check5.value && check5.person}</td>
@@ -490,7 +495,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>Auf Modulliste geändert</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check6.value })
+                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check6.value })
                                         }} /></td>
                                         <td>{check6.value && check6.datum}</td>
                                         <td>{check6.value && check6.person}</td>
@@ -498,7 +503,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>Im Web geändert</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check7.value })
+                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check7.value })
                                         }} /></td>
                                         <td>{check7.value && check7.datum}</td>
                                         <td>{check7.value && check7.person}</td>
@@ -506,7 +511,7 @@ function SaveOverview() {
                                     <tr>
                                         <td>In Studienrichtungsempfehlungen</td>
                                         <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: sessionStorage.getItem("username"), value: !check8.value })
+                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check8.value })
                                         }} /></td>
                                         <td>{check8.value && check8.datum}</td>
                                         <td>{check8.value && check8.person}</td>

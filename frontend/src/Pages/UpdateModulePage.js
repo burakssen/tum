@@ -128,7 +128,7 @@ function UpdateModulePage() {
     }
 
     return (
-        <div className="container-fluid text-center d-flex flex-column" style={{ height: "100vh" }}>
+        <div className="container-fluid text-center d-flex flex-column" >
             <div className="col-lg-12 col-sm-12 pt-5"><h2>Bereits bestehendes Modul ändern</h2></div>
             <div className="row align-items-center justify-content-center flex-fill flex-column">
                 <div className="container align-items-center justify-content-center flex-fill flex-column">

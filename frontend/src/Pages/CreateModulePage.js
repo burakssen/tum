@@ -117,7 +117,7 @@ function CreateModulePage() {
 
     return (
 
-        <div className="text-center d-flex flex-column flex-fill" style={{ height: "100vh" }}>
+        <div className="text-center d-flex flex-column flex-fill" >
             <div className="col-lg-12 col-sm-12 pt-5"><h2>Neues Modul beantragen</h2></div>
             <div className="row-12 align-items-center justify-content-center flex-fill flex-column">
                 <div className="container align-items-center justify-content-center flex-fill flex-column">
@@ -234,7 +234,7 @@ function CreateModulePage() {
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
