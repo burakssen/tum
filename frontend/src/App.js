@@ -2,6 +2,8 @@ import { Routes, Route, Navigate, redirect } from 'react-router-dom';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
+import { Suspense, lazy } from 'react';
+
 import Home from './Pages/Home';
 import LoginPage from './Pages/LoginPage';
 import EditCreatePage from './Pages/EditCreatePage';
@@ -12,11 +14,15 @@ import OverviewPage from './Pages/OverviewPage';
 import AdminRoute from './Components/AdminRoute';
 import SaveOverview from './Pages/SaveOverview';
 
+
 import Impressum from './Pages/Impressum';
 import Datenschutz from './Pages/Datenschutz';
 import Privacy from './Pages/Privacy';
 import Support from './Pages/Support';
 import Logo from './Pages/Logo';
+
+const ModulNummerManager = lazy(() => import('./Pages/ModulNummerManager.js'));
+
 
 const App = () => {
     return (
@@ -58,6 +64,15 @@ const App = () => {
                 <ProtectedRoute>
                     <AdminRoute>
                         <SaveOverview />
+                    </AdminRoute>
+                </ProtectedRoute>
+            } />
+            <Route path="modulNummerManager" element={
+                <ProtectedRoute>
+                    <AdminRoute>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <ModulNummerManager />
+                        </Suspense>
                     </AdminRoute>
                 </ProtectedRoute>
             } />

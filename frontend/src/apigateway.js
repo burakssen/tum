@@ -143,3 +143,29 @@ export async function loginButtonCall() {
         withCredentials: true
     });
 }
+
+export async function getExistingModuleNumbers() {
+    return await axios.get(gateway + "/api/modules/getExistingModuleNumbers", { withCredentials: true });
+}
+
+export async function addExistingModuleNumber(moduleNumber) {
+    return await axios.post(gateway + "/api/modules/addExistingModuleNumber", {
+        "moduleNumber": moduleNumber
+    }, { withCredentials: true });
+}
+
+export async function addExistingModules(modules) {
+    return await axios.post(gateway + "/api/modules/addExistingModules", {
+        modules: modules
+    }, { withCredentials: true });
+}
+
+export async function getExistingModules() {
+    return await axios.get(gateway + "/api/modules/getExistingModules", { withCredentials: true });
+}
+
+export async function deleteExistingModules(modules) {
+    return await axios.post(gateway + "/api/modules/deleteExistingModules", {
+        modules: modules
+    }, { withCredentials: true });
+}

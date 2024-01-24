@@ -16,7 +16,10 @@ const {
     getAllStatusService,
     updateCStatusService,
     updateUStatusService,
-    deleteModuleService
+    deleteModuleService,
+    addExistingModulesService,
+    getExistingModulesService,
+    deleteExistingModulesService
 } = require("../services/modules");
 
 exports.createModuleController = asyncHandler(async (req, res) => {
@@ -91,5 +94,34 @@ exports.updateUStatusController = asyncHandler(async (req, res) => {
 
 exports.deleteModuleController = asyncHandler(async (req, res) => {
     const result = await deleteModuleService(req.body);
+    res.status(SUCCESS).json(result);
+});
+
+exports.addExistingModulesController = asyncHandler(async (req, res) => {
+    const result = await addExistingModulesService(req.body);
+
+    if (result === undefined) {
+        res.status(SUCCESS_NO_CONTENT).json({ message: "Module ID already exists" });
+        return;
+    }
+
+    res.status(SUCCESS).json(result);
+});
+
+exports.getExistingModulesController = asyncHandler(async (req, res) => {
+    const result = await getExistingModulesService();
+    if (result === undefined) {
+        res.status(SUCCESS_NO_CONTENT).json({ message: "No module found" });
+        return;
+    }
+    res.status(SUCCESS).json(result);
+});
+
+exports.deleteExistingModulesController = asyncHandler(async (req, res) => {
+    const result = await deleteExistingModulesService(req.body);
+    if (result === undefined) {
+        res.status(SUCCESS_NO_CONTENT).json({ message: "No module found" });
+        return;
+    }
     res.status(SUCCESS).json(result);
 });

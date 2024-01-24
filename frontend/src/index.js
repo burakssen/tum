@@ -8,7 +8,7 @@ import Footer from "./Components/Footer";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
-  <BrowserRouter>
+  <BrowserRouter forceRefresh={true}>
     <div className="d-flex flex-column min-vh-100 justify-content-between">
       <App className="container" />
       <Footer className="footer" />

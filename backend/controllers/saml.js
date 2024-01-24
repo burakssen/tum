@@ -29,7 +29,6 @@ let strategy = new SamlStrategy({
   decryptionPvk: privateKey,
   cert: idpCert
 }, (req, profile, done) => {
-  console.log(profile);
   let user = {
     tumKennung: profile["urn:oid:0.9.2342.19200300.100.1.1"],
     firstname: profile["urn:oid:2.5.4.42"],

@@ -13,5 +13,8 @@ exports.endpoints = {
     getUpdatedModule: "/getUpdatedModule",
     editUpdatedModule: "/editUpdatedModule",
     updateCStatus: "/updateCStatus",
-    updateUStatus: "/updateUStatus"
+    updateUStatus: "/updateUStatus",
+    addExistingModules: "/addExistingModules",
+    getExistingModules: "/getExistingModules",
+    deleteExistingModules: "/deleteExistingModules",
 }

@@ -17,7 +17,10 @@ const {
     editUpdatedModuleController,
     getModuleUVersionController,
     updateCStatusController,
-    updateUStatusController
+    updateUStatusController,
+    addExistingModulesController,
+    getExistingModulesController,
+    deleteExistingModulesController
 } = require("../controllers/modules");
 const { authenticateToken } = require("../utils/authenticateToken");
 
@@ -143,6 +146,30 @@ router.post(
     requestValidator(endpoints.updateUStatus),
     authenticateToken,
     updateUStatusController
+)
+
+router.post(
+    endpoints.addExistingModules,
+    validationHandler,
+    requestValidator(endpoints.addExistingModules),
+    authenticateToken,
+    addExistingModulesController
+)
+
+router.get(
+    endpoints.getExistingModules,
+    validationHandler,
+    requestValidator(endpoints.getExistingModules),
+    authenticateToken,
+    getExistingModulesController
+)
+
+router.post(
+    endpoints.deleteExistingModules,
+    validationHandler,
+    requestValidator(endpoints.deleteExistingModules),
+    authenticateToken,
+    deleteExistingModulesController
 )
 
 module.exports = router;

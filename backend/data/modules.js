@@ -1,9 +1,10 @@
+const { SUCCESS } = require("../common/statusCodes");
 const { nano } = require("../database/couchdb");
 const db_created_modules = nano.use("module_app_created_modules");
 const db_updated_modules = nano.use("module_app_updated_modules");
+const db_existing_modules = nano.use("module_app_existing_modules");
 
 exports.createModuleData = async (module) => {
-
     const metaDoc = await db_created_modules.get("meta");
     const newModule = await db_created_modules.insert({
         "versions": {
@@ -42,12 +43,14 @@ exports.deleteModuleData = async (username, document_id, document_type, rev) => 
 
     if (document_type === "created_modules") {
         try {
+            console.log(document_id, rev);
             response = await db_created_modules.destroy(document_id, rev);
-
+            console.log(response);
             let meta = await db_created_modules.get("meta");
 
             const index = meta["module_user_mappings"][username].indexOf(document_id);
 
+            console.log(index);
 
             if (index > -1) {
                 meta["module_user_mappings"][username].splice(index, 1);
@@ -288,4 +291,44 @@ exports.updateUStatusData = async (status) => {
     });
 
     return await db_updated_modules.insert(doc);
+}
+
+exports.addExistingModulesData = async (modules) => {
+    if (modules.length === 0)
+        return;
+
+    return await db_existing_modules.bulk({
+        "docs": [
+            ...modules
+        ]
+    });
+}
+
+exports.getExistingModulesData = async () => {
+    const docs = await db_existing_modules.list();
+    console.log(docs);
+    const existingModuleIds = [];
+
+    docs["rows"].forEach((doc) => {
+        existingModuleIds.push(doc.id);
+    });
+
+    if (existingModuleIds.length === 0)
+        return [];
+
+    return await db_existing_modules.fetch({ keys: existingModuleIds });
+}
+
+exports.deleteExistingModulesData = async (modules) => {
+    if (modules.length === 0)
+        return;
+
+    modules.forEach(async (module) => {
+        const resp = await db_existing_modules.destroy(module._id, module._rev, { force: true }, (err, body) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+    });
+    return SUCCESS;
 }

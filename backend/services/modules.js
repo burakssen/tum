@@ -15,10 +15,29 @@ const {
     getAllStatusData,
     updateCStatusData,
     updateUStatusData,
-    deleteModuleData
+    deleteModuleData,
+    addExistingModulesData,
+    getExistingModulesData,
+    deleteExistingModulesData
 } = require("../data/modules");
 
+const generateModuleId = asyncHandler(async (module) => {
+    console.log(module);
+    const existingModules = await getExistingModulesData();
+
+    if (existingModules === undefined) {
+        return undefined;
+    }
+
+    let existingModuleIds = [];
+    existingModules.rows.forEach((existingModule) => {
+        existingModuleIds.push(existingModule.id);
+    });
+    console.log(existingModuleIds);
+});
+
 exports.createModuleService = asyncHandler(async (module) => {
+    module.module_id = await generateModuleId(module);
     return await createModuleData(module);
 });
 
@@ -76,4 +95,16 @@ exports.updateUStatusService = asyncHandler(async (status) => {
 
 exports.deleteModuleService = asyncHandler(async (req) => {
     return await deleteModuleData(req.username, req.document_id, req.document_type, req.rev);
+});
+
+exports.addExistingModulesService = asyncHandler(async (req) => {
+    return await addExistingModulesData(req.modules);
+});
+
+exports.getExistingModulesService = asyncHandler(async () => {
+    return await getExistingModulesData();
+});
+
+exports.deleteExistingModulesService = asyncHandler(async (req) => {
+    return await deleteExistingModulesData(req.modules);
 });

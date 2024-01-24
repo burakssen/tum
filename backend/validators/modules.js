@@ -51,6 +51,15 @@ exports.requestValidator = (method) => {
         case endpoints.updateUStatus: {
             return [];
         }
+        case endpoints.addExistingModules: {
+            return [];
+        }
+        case endpoints.getExistingModules: {
+            return [];
+        }
+        case endpoints.deleteExistingModules: {
+            return [];
+        }
         default:
             break;
     }

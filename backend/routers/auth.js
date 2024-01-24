@@ -102,6 +102,7 @@ router.get(
 )
 
 router.get(
+    // get req to https://modulmanager.ldv.ei.tum.de/Shibboleth.sso/access
     endpoints.access,
     passport.authenticate("saml", { failureRedirect: "/", failureFlash: true }),
 )
@@ -111,7 +112,6 @@ router.post(
     bodyParser.urlencoded({ extended: false }),
     passport.authenticate("saml", { failureRedirect: "/", failureFlash: true }),
     async (req, res) => {
-        console.log(req.user);
         const user = { email: req.user.email };
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1w' });
         res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: 'None' });

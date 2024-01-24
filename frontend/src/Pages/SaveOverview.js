@@ -39,15 +39,16 @@ function SaveOverview() {
     const [zuordnung_coc, setZuordnung_coc] = useState('');
     const [modulbeschreibung_liegt_vor, setModulbeschreibung_liegt_vor] = useState(false);
 
-    const [check1, setCheck1] = useState(false);
-    const [check2, setCheck2] = useState(false);
-    const [check3, setCheck3] = useState(false);
-    const [check4, setCheck4] = useState(false);
-    const [check5, setCheck5] = useState(false);
-    const [check6, setCheck6] = useState(false);
-    const [check7, setCheck7] = useState(false);
-    const [check8, setCheck8] = useState(false);
-
+    const [checkBoxes, setCheckBoxes] = useState([
+        { id: 1, title: "In Tool/Datenbank erfasst:", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 2, title: "In TUMonline angelegt", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 3, title: "In Studienkommission verabschiedet", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 4, title: "In Teaching council verabschiedet", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 5, title: "In TUMonline fertiggestellt", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 6, title: "Auf Modulliste geändert", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 7, title: "Im Web geändert", checked: false, disabled: false, data: { datum: "", editor: "" } },
+        { id: 8, title: "In Studienrichtungsempfehlungen", checked: false, disabled: false, data: { datum: "", editor: "" } },
+    ])
     const [user, setUser] = useState();
 
 
@@ -84,9 +85,10 @@ function SaveOverview() {
         if (currentModule) {
             let cModule = "";
             if (pageType === "create")
-                cModule = currentModule[Object.keys(currentModule)[0]]
+                cModule = currentModule[Object.keys(currentModule)[0]];
             else
-                cModule = currentModule
+                cModule = currentModule;
+
             cModule["module_id"] ? setModule_id(cModule["module_id"]) : setModule_id("");
             Object.keys(currentModule)[0] ? setVersion(Object.keys(currentModule)[0]) : setVersion("");
             cModule["antragsteller"] ? setAntragsteller(cModule["antragsteller"]) : setAntragsteller("");
@@ -110,14 +112,17 @@ function SaveOverview() {
             cModule["zuordnung_coc"] ? setZuordnung_coc(cModule["zuordnung_coc"]) : setZuordnung_coc("");
             cModule["modulbeschreibung_liegt_vor"] ? setModulbeschreibung_liegt_vor(cModule["modulbeschreibung_liegt_vor"]) : setModulbeschreibung_liegt_vor("");
 
-            cModule["status"]["1"] ? setCheck1({ fromDataBase: true, ...cModule["status"]["1"], value: true }) : setCheck1(false);
-            cModule["status"]["2"] ? setCheck2({ fromDataBase: true, ...cModule["status"]["2"], value: true }) : setCheck2(false);
-            cModule["status"]["3"] ? setCheck3({ fromDataBase: true, ...cModule["status"]["3"], value: true }) : setCheck3(false);
-            cModule["status"]["4"] ? setCheck4({ fromDataBase: true, ...cModule["status"]["4"], value: true }) : setCheck4(false);
-            cModule["status"]["5"] ? setCheck5({ fromDataBase: true, ...cModule["status"]["5"], value: true }) : setCheck5(false);
-            cModule["status"]["6"] ? setCheck6({ fromDataBase: true, ...cModule["status"]["6"], value: true }) : setCheck6(false);
-            cModule["status"]["7"] ? setCheck7({ fromDataBase: true, ...cModule["status"]["7"], value: true }) : setCheck7(false);
-            cModule["status"]["8"] ? setCheck8({ fromDataBase: true, ...cModule["status"]["8"], value: true }) : setCheck8(false);
+            setCheckBoxes((prevState) => {
+                const nextState = [...prevState];
+                for (let i = 1; i <= nextState.length; i++) {
+                    if (cModule["status"][i] !== undefined) {
+                        nextState[i - 1].checked = true;
+                        nextState[i - 1].data = cModule["status"][i];
+                        nextState[i - 1].disabled = true;
+                    }
+                }
+                return nextState;
+            });
         }
 
     }, [meta, currentModule, pageType]);
@@ -127,17 +132,19 @@ function SaveOverview() {
             ...(module_id && { "module_id": module_id }),
             ...(version && { "version": version })
         }
-        const statusValues = {
-            ...(check1.value && { "1": { "datum": check1.datum, "person": check1.person } }),
-            ...(check2.value && { "2": { "datum": check2.datum, "person": check2.person } }),
-            ...(check3.value && { "3": { "datum": check3.datum, "person": check3.person } }),
-            ...(check4.value && { "4": { "datum": check4.datum, "person": check4.person } }),
-            ...(check5.value && { "5": { "datum": check5.datum, "person": check5.person } }),
-            ...(check6.value && { "6": { "datum": check6.datum, "person": check6.person } }),
-            ...(check7.value && { "7": { "datum": check7.datum, "person": check7.person } }),
-            ...(check8.value && { "8": { "datum": check8.datum, "person": check8.person } }),
 
-        }
+        const checked = checkBoxes.filter((element) => {
+            return element.checked;
+        });
+
+        const statusValues = {};
+
+        checked.forEach((element) => {
+            statusValues[element.id] = element.data;
+        });
+
+        console.log(statusValues);
+
         try {
             const response = await updateStatus(document_id, moduleChange, statusValues, pageType);
             if (response.status === axios.HttpStatusCode.Ok) {
@@ -145,6 +152,31 @@ function SaveOverview() {
             }
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    const handleCheckBoxChange = (index) => {
+        if (!checkBoxes[index].checked) {
+            setCheckBoxes((prevState) => {
+                const nextState = [...prevState];
+                const date = new Date();
+                nextState[index].data = { datum: date.toLocaleString(), editor: user.tumKennung };
+                nextState[index].checked = !nextState[index].checked;
+                for (let i = index + 1; i < nextState.length; i++) {
+                    nextState[i].data = "";
+                    nextState[i].checked = false;
+                }
+                return nextState;
+            });
+        } else {
+            setCheckBoxes((prevState) => {
+                const nextState = [...prevState];
+                for (let i = index; i < nextState.length; i++) {
+                    nextState[i].data = "";
+                    nextState[i].checked = false;
+                }
+                return nextState;
+            });
         }
     }
 
@@ -271,89 +303,37 @@ function SaveOverview() {
 
                         </div>
                     </div>
-                    <div className="col-5 jusify-self-start p-1">
-                        <div className="row">
-                            <table className="col-12 table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th className="col-4">Aktion</th>
-                                        <th></th>
-                                        <th>Datum</th>
-                                        <th>Person</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>In Tool/Datenbank erfasst:</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
-                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: user.tumKennung, value: !check1.value }) }} /></td>
-                                        <td>{check1.value && check1.datum}</td>
-                                        <td>{check1.value && check1.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In TUMonline angelegt</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: user.tumKennung, value: !check2.value })
-                                        }} /></td>
-                                        <td>{check2.value && check2.datum}</td>
-                                        <td>{check2.value && check2.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In Studienkommission verabschiedet</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check3.value })
-                                        }} /></td>
-                                        <td>{check3.value && check3.datum}</td>
-                                        <td>{check3.value && check3.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In Teaching council verabschiedet</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check4.value })
-                                        }} /></td>
-                                        <td>{check4.value && check4.datum}</td>
-                                        <td>{check4.value && check4.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In TUMonline fertiggestellt</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check5.value })
-                                        }} /></td>
-                                        <td>{check5.value && check5.datum}</td>
-                                        <td>{check5.value && check5.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Auf Modulliste geändert</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check6.value })
-                                        }} /></td>
-                                        <td>{check6.value && check6.datum}</td>
-                                        <td>{check6.value && check6.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Im Web geändert</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check7.value })
-                                        }} /></td>
-                                        <td>{check7.value && check7.datum}</td>
-                                        <td>{check7.value && check7.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In Studienrichtungsempfehlungen</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check8.value })
-                                        }} /></td>
-                                        <td>{check8.value && check8.datum}</td>
-                                        <td>{check8.value && check8.person}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="flex-column col-5 jusify-self-start p-1">
+                        <table className="col-12 table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th className="col-4">Aktion</th>
+                                    <th></th>
+                                    <th>Datum</th>
+                                    <th>Person</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {checkBoxes.map((checkBox, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{checkBox.title}</td>
+                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}>
+                                                <input disabled={(checkBoxes[index - 1] && !checkBoxes[index - 1].checked && index !== 0) || checkBox.disabled} checked={checkBox.checked} type="checkbox" onChange={(e) => { handleCheckBoxChange(index) }} /></td>
+                                            <td>{checkBox.checked && checkBox.data.datum}</td>
+                                            <td>{checkBox.checked && checkBox.data.editor}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
                         <div className="row  align-self-center justify-content-center flex-row" >
                             <button className="col btn btn-secondary m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
                             <button className="col btn btn-secondary m-1" onClick={handleSubmit}>Speichern</button>
+                            <button className="col btn btn-secondary m-1" onClick={() => { console.log("Export to json file") }}>Export</button>
                         </div>
                     </div>
+
                 </div>
 
             }
@@ -442,86 +422,33 @@ function SaveOverview() {
                         </div>
                     </div>
                     <div className="flex-column col-5 jusify-self-start p-1">
-                        <div className="row ">
-                            <table className="col-12 table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th className="col-4">Aktion</th>
-                                        <th></th>
-                                        <th>Datum</th>
-                                        <th>Person</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>In Tool/Datenbank erfasst:</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={check1.value && check1.fromDataBase} checked={check1.value} type="checkbox"
-                                            onChange={(e) => { const date = new Date(); setCheck1({ datum: date.toLocaleString(), person: user.tumKennung, value: !check1.value }) }} /></td>
-                                        <td>{check1.value && check1.datum}</td>
-                                        <td>{check1.value && check1.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In TUMonline angelegt</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check2.value && check2.fromDataBase) || (!check1.value && !check1.fromDataBase)} checked={check2.value && check1.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck2({ datum: date.toLocaleString(), person: user.tumKennung, value: !check2.value })
-                                        }} /></td>
-                                        <td>{check2.value && check2.datum}</td>
-                                        <td>{check2.value && check2.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In Studienkommission verabschiedet</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check3.value && check3.fromDataBase) || (!check2.value && !check2.fromDataBase)} checked={check3.value && check2.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck3({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check3.value })
-                                        }} /></td>
-                                        <td>{check3.value && check3.datum}</td>
-                                        <td>{check3.value && check3.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In Teaching council verabschiedet</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check4.value && check4.fromDataBase) || (!check3.value && !check3.fromDataBase)} checked={check4.value && check3.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck4({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check4.value })
-                                        }} /></td>
-                                        <td>{check4.value && check4.datum}</td>
-                                        <td>{check4.value && check4.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In TUMonline fertiggestellt</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check5.value && check5.fromDataBase) || (!check4.value && !check4.fromDataBase)} checked={check5.value && check4.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck5({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check5.value })
-                                        }} /></td>
-                                        <td>{check5.value && check5.datum}</td>
-                                        <td>{check5.value && check5.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Auf Modulliste geändert</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check6.value && check6.fromDataBase) || (!check5.value && !check5.fromDataBase)} checked={check6.value && check5.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck6({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check6.value })
-                                        }} /></td>
-                                        <td>{check6.value && check6.datum}</td>
-                                        <td>{check6.value && check6.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Im Web geändert</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check7.value && check7.fromDataBase) || (!check6.value && !check6.fromDataBase)} checked={check7.value && check6.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck7({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check7.value })
-                                        }} /></td>
-                                        <td>{check7.value && check7.datum}</td>
-                                        <td>{check7.value && check7.person}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>In Studienrichtungsempfehlungen</td>
-                                        <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}><input disabled={(check8.value && check8.fromDataBase) || (!check7.value && !check7.fromDataBase)} checked={check8.value && check7.value} type="checkbox" onChange={(e) => {
-                                            const date = new Date(); setCheck8({ fromDataBase: false, datum: date.toLocaleString(), person: user.tumKennung, value: !check8.value })
-                                        }} /></td>
-                                        <td>{check8.value && check8.datum}</td>
-                                        <td>{check8.value && check8.person}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table className="col-12 table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th className="col-4">Aktion</th>
+                                    <th></th>
+                                    <th>Datum</th>
+                                    <th>Person</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {checkBoxes.map((checkBox, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{checkBox.title}</td>
+                                            <td className="text-center align-middle" style={{ transform: "scale(1.5)" }}>
+                                                <input disabled={(checkBoxes[index - 1] && !checkBoxes[index - 1].checked && index !== 0) || checkBox.disabled} checked={checkBox.checked} type="checkbox" onChange={(e) => { handleCheckBoxChange(index) }} /></td>
+                                            <td>{checkBox.checked && checkBox.data.datum}</td>
+                                            <td>{checkBox.checked && checkBox.data.editor}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
                         <div className="row  align-self-center justify-content-center flex-row" >
                             <button className="col btn btn-secondary m-1" onClick={() => { navigate("/overview") }}>Abbrechen</button>
                             <button className="col btn btn-secondary m-1" onClick={handleSubmit}>Speichern</button>
+                            <button className="col btn btn-secondary m-1" onClick={() => { console.log("Export to json file") }}>Export</button>
                         </div>
                     </div>
 
